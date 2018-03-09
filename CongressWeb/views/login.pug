@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome to #{title}
+	div
+		p #{title} is a webpage for managing the speakers in a congress and viewing its information
+	h2 Login
+	form(action='/auth' method='post')
+		div
+			label Username:
+			input(type='text' name='username')
+		div
+			label Password:
+			input(type='password' name='password')
+		div
+			input(type='submit' value='Log In')
+	a(href='/signup') Sign up
