@@ -1,8 +1,113 @@
+html {
+	min-height: 100%;
+}
+html, body {
+	padding: 0;
+	margin: 0;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px 'Proza Libre', Helvetica, Arial, sans-serif;
+}
+
+div.bg-image {
+	top: 66px;
+	left: 0;
+	right: 0;
+	height: 200px;
+	position: fixed;
+	z-index: -1;
+	background-image: url(/images/puentecillas.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
 }
 
 a {
-  color: #00B7FF;
+	color: inherit;
+}
+
+header {
+	top: 0;
+	left: 0;
+	right: 0;
+	height: auto;
+}
+
+header nav {
+	position: fixed;
+	left: 0;
+	right: 0;
+	padding: 0 20px;
+	background: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #000;
+	box-shadow: 0 0 10px 1px #555;
+}
+
+header nav h1 {
+	font-family: 'Trocchi', serif;
+	font-size: 2em;
+	margin: 15px;
+}
+
+header a {
+	text-decoration: none;
+}
+
+header ul.section-tabs {
+	margin-left: auto;
+}
+
+header ul.section-tabs li {
+	display: inline-block;
+	margin: 0 10px;
+	text-decoration: underline;
+}
+
+header div.current-session {
+	margin-left: auto;
+	display: flex;
+	padding: 10px 20px;
+	border: 1px solid #fff;
+	align-items: center;
+}
+header div.current-session a {
+	white-space: nowrap;
+	border: 1px solid #000;
+	border-radius: 5px;
+	padding: 5px 8px;
+	background-color: #555;
+	color: #fff;
+}
+
+header div.image-space {
+	height: 230px;
+}
+
+header div.no-image-space {
+	height: 66px;
+}
+
+section.main {
+	background-color: #FFF;
+	margin: 0;
+	box-shadow: 0 0 10px 1px #555;
+}
+
+section.main, footer {
+	padding: 25px 50px;
+}
+footer {
+	color: #fff;
+	background-color: #333;
+}
+
+footer .sponsors-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	text-align: center;
 }

@@ -1,7 +1,39 @@
+- 
+	var sectionTabs = [
+		{name: 'Homepage', url: '/'},
+		{name: 'Participants', url: '/participants'},
+		{name: 'Schedule', url: '/schedule'},
+		{name: 'Travel and accomodation', url: '/travel'}]
+
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(href='https://fonts.googleapis.com/css?family=Proza+Libre|Trocchi' rel='stylesheet')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		if headerImage
+			div.bg-image
+		header
+			nav
+				h1 
+					a(href='/') EREP'18
+				ul.section-tabs
+					each tab in sectionTabs
+						li
+							a(href=tab.url) #{tab.name}
+				block session
+					div.current-session
+						a.button(href='/login') Log In
+			if headerImage
+				div.image-space
+			else
+				div.no-image-space
+				
+		section.main
+			block content
+		footer
+			div.sponsors-grid
+				each val, index in ['one', 'two', 'three', 'four', 'five']
+					div(class=val) Sponsor number #{index} 
+
