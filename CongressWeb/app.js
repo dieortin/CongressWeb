@@ -4,18 +4,23 @@ const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const debugApp = require('debug')('congressweb:app')
-const debugDb = require('debug')('congressweb:db')
+//const debugApp = require('debug')('congressweb:app')
 
 // Environment variables setup
 require('dotenv').config()
 
 const passport = require('passport')
-const mongoose = require('mongoose')
 const helmet = require('helmet')
-const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
+
+
+/////////////////////////////////////////////////////////
+/////////// HELPERS /////////////////////////////////////
+const database = require('./helpers/database')
+const auth = require('./helpers/auth')
+/////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////
 /////////// ROUTES //////////////////////////////////////
@@ -25,6 +30,7 @@ const login = require('./routes/login')				/////
 const signup = require('./routes/signup')			/////
 const restricted = require('./routes/restricted')	/////
 /////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////
 /////////// BASIC EXPRESS SETUP /////////////////////////
@@ -42,35 +48,13 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
 
 /// Using helmet to help secure the server
 app.use(helmet())
 //////////////////////////////////////////////////////////
 
-
-//////////////////////////////////////////////////////////
-//////////// DATABASE CONNECTION /////////////////////////
-const dbopt = {
-	host: process.env.DATABASE_HOST,
-	user: process.env.DATABASE_USER,
-	pass: process.env.DATABASE_PASSWORD,
-	port: process.env.DATABASE_PORT,
-	path: process.env.DATABASE_PATH
-}
-const dbCredString = dbopt.user + ':' + dbopt.pass
-const dbHostString = dbopt.host + ':' + dbopt.port + '/' + dbopt.path
-const dbCompletePath =  dbCredString + '@' + dbHostString
-debugDb('Connecting to database on ' + dbHostString)
-mongoose.connect('mongodb://' + dbCompletePath)
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error: '))
-db.once('open', () => {
-	debugDb('Connected to the database successfully!')
-})
-
-const User = require('./models').User
-///////////////////////////////////////////////////////////
+database.connect()
 
 ///////////////////////////////////////////////////////////
 ////////////////     PASSPORT     /////////////////////////
@@ -84,12 +68,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Local Strategy initialization
-passport.use(new LocalStrategy(verifyCredentials))
+passport.use(new LocalStrategy(auth))
 
 passport.serializeUser(function(user, done) {
 	done(null, user._id)
 })
 
+const User = require('./models/User')
 passport.deserializeUser(function(id, done) {
 	User.findById(id, (err, user) => {
 		done(err, user)
@@ -142,40 +127,3 @@ app.use(function(err, req, res) {
 })
 
 module.exports = app
-
-function verifyCredentials(username, password, done) {
-	findUser(username, password, done, verifyPassword)
-}
-
-function findUser(username, password, done, callback) {
-	User.findOne({'username': username}, 'username passwordHash', (err, user) => {
-		if (err) {
-			return console.error(err)
-		}
-		if (!user) {
-			//debugApp('Username ' + username + ' not found!')
-			return done(null, false, {
-				message: 'Incorrect username or password'
-			})
-		} else {
-			return callback(null, user, password, done)
-		}
-	})
-}
-
-function verifyPassword(err, user, password, done) {
-	/// Always use hashed passwords and fixed time comparison
-	bcrypt.compare(password, user.passwordHash, (err, isValid) => {
-		if (err) {
-			return done(err)
-		}
-		if (!isValid) {
-			//debugApp('The password ' + password + ' is invalid for user ' + user.username)
-			return done(null, false, {
-				message: 'Incorrect username or password.'
-			})
-		}
-		//debugApp('The password ' + password + ' is valid for user ' + user.username)
-		return done(null, user)
-	})
-}
