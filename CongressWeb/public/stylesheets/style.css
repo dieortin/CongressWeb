@@ -1,20 +1,25 @@
-html {
-	min-height: 100%;
+:root {
+	--header-height: 70px;
+	--footer-height: 200px;
+	--header-image-size: calc(100vh / 2.4)/*300px*/;
 }
+
 html, body {
+	height: 100%;
 	padding: 0;
 	margin: 0;
 }
 
 body {
 	font: 14px 'Proza Libre', Helvetica, Arial, sans-serif;
+	height: calc(calc(100% - var(--header-image-size)) - var(--header-height))
 }
 
 div.bg-image {
-	top: 66px;
+	top: var(--header-height);
 	left: 0;
 	right: 0;
-	height: 200px;
+	height: var(--header-image-size);
 	position: fixed;
 	z-index: -1;
 	background-image: url(/images/puentecillas.jpg);
@@ -27,17 +32,16 @@ a {
 	color: inherit;
 }
 
+
 header {
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: auto;
+	height: var(--header-height);
 }
 
 header nav {
-	position: fixed;
-	left: 0;
-	right: 0;
 	padding: 0 20px;
 	background: #fff;
 	display: flex;
@@ -46,6 +50,7 @@ header nav {
 	align-items: center;
 	border-bottom: 1px solid #000;
 	box-shadow: 0 0 10px 1px #555;
+	height: var(--header-height);
 }
 
 header nav h1 {
@@ -84,26 +89,30 @@ header div.current-session a {
 	color: #fff;
 }
 
-header div.image-space {
-	height: 230px;
+section.image-margin {
+	margin-top: calc(var(--header-image-size) + var(--header-height));
 }
 
-header div.no-image-space {
-	height: 66px;
+section.no-image-margin {
+	margin-top: var(--header-height);
 }
 
 section.main {
-	background-color: #FFF;
-	margin: 0;
+	min-height: calc(100% - var(--footer-height));
+	background-color: #fff;
+	margin-left: 0;
+	margin-right: 0;
 	box-shadow: 0 0 10px 1px #555;
 }
 
 section.main, footer {
 	padding: 25px 50px;
+	box-sizing: border-box;
 }
 footer {
 	color: #fff;
 	background-color: #333;
+	height: var(--footer-height);
 }
 
 footer .sponsors-grid {
