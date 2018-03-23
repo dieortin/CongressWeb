@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 		res.redirect('/restricted')
 	} else {
 		res.render('signup', {
-			title: 'CongressWeb'
+			title: 'Register'
 		})
 	}
 })

@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 	if (req.isAuthenticated()) {
 		res.redirect('/restricted')
 	} else {
-		res.render('login', { title: 'CongressWeb' })
+		res.render('login', { title: 'Login' })
 	}
 })
 
