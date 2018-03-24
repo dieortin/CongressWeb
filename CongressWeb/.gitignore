@@ -1,7 +1,0 @@
-node_modules
-*.lock
-*.swp
-.env
-sslcert/*
-*.pem
-*.crt
