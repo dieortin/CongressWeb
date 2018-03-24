@@ -22,9 +22,14 @@ html
 					each tab in sectionTabs
 						li
 							a(href=tab.url) #{tab.name}
-				block session
+				if user
 					div.current-session
-						a.button(href='/login') Log In
+						span Logged in as 
+							span.bold= user.username
+						a.logout(href='/logout') Sign out
+				else
+					div.current-session
+						a.button.login(href='/login') Log In
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)

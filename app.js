@@ -13,6 +13,7 @@ const passport = require('passport')
 const helmet = require('helmet')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 
 
 /////////////////////////////////////////////////////////
@@ -62,7 +63,13 @@ database.connect()
 app.use(session({ // Session initialization
 	secret: process.env.SESSION_SECRET,
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: true,
+	cookie: {
+		secure: true,
+		maxAge: 604800000, // 7 days
+		httpOnly: true // helps mitigate some attacks
+	},
+	store: new MongoStore({ mongooseConnection: database.get() })
 }))
 app.use(passport.initialize())
 app.use(passport.session())

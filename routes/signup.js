@@ -9,9 +9,7 @@ router.get('/', function(req, res) {
 	if (req.isAuthenticated()) {
 		res.redirect('/restricted')
 	} else {
-		res.render('signup', {
-			title: 'Register'
-		})
+		res.render('signup', { title: 'Register' })
 	}
 })
 
