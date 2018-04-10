@@ -26,11 +26,11 @@ html
 				if user
 					div.current-session
 						span Logged in as 
-							span.bold= user.username
+							span.bold= user.firstName
 						a.logout(href='/logout') Sign out
 				else
 					div.current-session
-						a.button.login(href='/login') Log In
+						a.button.login(href='/login') Login / Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)

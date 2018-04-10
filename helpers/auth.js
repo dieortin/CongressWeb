@@ -1,21 +1,23 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/User.js')
+const debugAuth = require('debug')('congressweb:auth')
 
-function verifyCredentials(username, password, done) {
-	findUser(username, password, done, verifyPassword)
+function verifyCredentials(email, password, done) {
+	findUser(email, password, done, verifyPassword)
 }
 
-function findUser(username, password, done, callback) {
-	User.findOne({'username': username}, 'username passwordHash', (err, user) => {
+function findUser(email, password, done, callback) {
+	User.findOne({'authData.email': email}, 'authData.email authData.passwordHash', (err, user) => {
 		if (err) {
 			return console.error(err)
 		}
 		if (!user) {
-			//debugApp('Username ' + username + ' not found!')
+			debugAuth('email ' + email + ' not found!')
 			return done(null, false, {
-				message: 'Incorrect username or password'
+				message: 'Incorrect email or password'
 			})
 		} else {
+			debugAuth('Verifying password ' + password + ' for email ' + email)
 			return callback(null, user, password, done)
 		}
 	})
@@ -23,17 +25,17 @@ function findUser(username, password, done, callback) {
 
 function verifyPassword(err, user, password, done) {
 	/// Always use hashed passwords and fixed time comparison
-	bcrypt.compare(password, user.passwordHash, (err, isValid) => {
+	bcrypt.compare(password, user.authData.passwordHash, (err, isValid) => {
 		if (err) {
 			return done(err)
 		}
 		if (!isValid) {
-			//debugApp('The password ' + password + ' is invalid for user ' + user.username)
+			debugAuth('The password ' + password + ' is invalid for user ' + user.authData.email)
 			return done(null, false, {
-				message: 'Incorrect username or password.'
+				message: 'Incorrect email or password.'
 			})
 		}
-		//debugApp('The password ' + password + ' is valid for user ' + user.username)
+		debugAuth('The password ' + password + ' is valid for user ' + user.authData.email)
 		return done(null, user)
 	})
 }

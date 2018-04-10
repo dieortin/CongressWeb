@@ -14,8 +14,7 @@ router.get('/', isAuthenticated, (req, res) => {
 })
 
 router.get('/:code', function(req, res) {
-	if (req.params.code == 'recaptcha') {
-		res.render('signup', { title: 'Register', error: 'Failed captcha verification' })
+	if (req.params.code == 'recaptcha') {res.render('signup', { title: 'Register', error: 'Failed captcha verification' })
 	} else {
 		res.render('signup', { title: 'Register', error: code })
 	}
@@ -41,15 +40,39 @@ router.post('/', function(req, res, next) {
 		}
 	})
 }, function(req, res) {
-	const username = req.body.username
+	const email = req.body.email
 	const password = req.body.password
+	const title = req.body.title
+	const firstName = req.body.firstName
+	const familyName = req.body.familyName
+	const phoneNumber = req.body.phoneNumber
+	const affiliationName = req.body.affiliationName
+	const affiliationAddress = req.body.affiliationAddress
+	const arrivalDate = req.body.arrivalDate
+	const departureDate = req.body.departureDate
 
-	console.log('Creating new user with username ' + username + ' and password ' + password)
+	console.log('Creating new user with email ' + email + ' and password ' + password)
 
 	bcrypt.hash(password, 10, function(err, hash) {
 		const newUser = new User({
-			username: username,
-			passwordHash: hash
+			authData: {
+				email: email,
+				passwordHash: hash
+			},
+			personalData: {
+				title: title,
+				firstName: firstName,
+				familyName: familyName,
+				phoneNumber: phoneNumber
+			},
+			affiliation: {
+				name: affiliationName,
+				address: affiliationAddress
+			},
+			dateOf: {
+				arrival: arrivalDate,
+				departure: departureDate
+			}
 		})
 		newUser.save((err/*, newUser*/) => {
 			if (err) {

@@ -2,5 +2,10 @@ extends layout
 
 block content
 	h1 Restricted area
-	p Welcome, #{username}
+	p Welcome, #{user.title} #{user.firstName}
+
+	ul
+		each attr in user
+			li= attr
+
 	a(href='/logout') Sign out

@@ -11,9 +11,12 @@ require('dotenv').config()
 
 const passport = require('passport')
 const helmet = require('helmet')
+const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
+var flash = require('connect-flash');
+
 
 
 /////////////////////////////////////////////////////////
@@ -50,9 +53,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(cookieParser())
 app.use(express.static('public'))
+app.use(flash())
 
 /// Using helmet to help secure the server
 app.use(helmet())
+//app.use(redirectToHTTPS()) TODO: Get this working
 //////////////////////////////////////////////////////////
 
 database.connect()
@@ -112,7 +117,7 @@ app.get('/logout', (req, res) => {
 app.post('/auth', passport.authenticate('local', {
 	successRedirect: '/restricted',
 	failureRedirect: '/login',
-	failureFlash: false
+	failureFlash: true
 }))
 
 // catch 404 and forward to error handler
