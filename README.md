@@ -1,6 +1,5 @@
 # CongressWeb
-CongressWeb is a web application running on NodeJS with the purpose of showcasing
-the 2018 Spanish-Portuguese Relativity Encounter and handling registrations.
+CongressWeb is a web application running on NodeJS with the purpose of showcasing the 2018 Spanish-Portuguese Relativity Encounter and handling registrations.
 
 # Running the server
 
@@ -16,4 +15,4 @@ to be set in order to run:
 * RECAPTCHA_SECRET
 
 ### SSL Certificate
-A file containing the SSL certificate for the HTTPS server should be located in the 'sslcert' folder, with the name 'server.crt'. Another file containing the key for said certificate should be located in the same folder, with name 'key.pem'.
+A file containing the SSL certificate for the HTTPS server should be located in the 'sslcert' folder, with the name 'cert.pem'. Another file containing the key for said certificate should be located in the same folder, with name 'key.pem'.

@@ -13,7 +13,7 @@ const path = require('path')
 
 /// Setup HTTPS 
 const options = {
-	cert: fs.readFileSync(path.join(__dirname, '../sslcert', 'server.crt')),
+	cert: fs.readFileSync(path.join(__dirname, '../sslcert', 'cert.pem')),
 	key: fs.readFileSync(path.join(__dirname, '../sslcert', 'key.pem'))
 }
 

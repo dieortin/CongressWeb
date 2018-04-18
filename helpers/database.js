@@ -17,11 +17,17 @@ var db = null
 
 exports.connect = function() {
 	debugDb('Connecting to database on ' + dbHostString)
-	mongoose.connect('mongodb://' + dbCompletePath)
-	db = mongoose.connection
-	db.on('error', console.error.bind(console, 'connection error: '))
-	db.once('open', () => {
-		debugDb('Connected to the database successfully!')
+	return new Promise((resolve, reject) => {
+		mongoose.connect('mongodb://' + dbCompletePath)
+			.then(() => {
+				db = mongoose.connection
+				debugDb('Connected to the database successfully!')
+				resolve()
+			})
+			.catch((err) => {
+				console.log('Error while connecting to the database!: ' + err)
+				reject()
+			})
 	})
 }
 
