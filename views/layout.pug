@@ -30,7 +30,11 @@ html
 						a.logout(href='/logout') Sign out
 				else
 					div.current-session
-						a.button.login(href='/login') Login / Registration
+						if registrationEnabled
+							a.button.registration(href='/signup') Registration
+						else
+							div.disabled(tooltiptext='Registrations are not open yet!')
+								a.button.registration.disabled(href='/signup') Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)

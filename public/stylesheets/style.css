@@ -27,6 +27,14 @@ body {
 	border-radius: 5px;
 }
 
+a.disabled {
+	pointer-events: none;
+}
+
+div.disabled {
+	cursor: not-allowed;
+}
+
 div.bg-image {
 	top: var(--header-height);
 	left: 0;
@@ -94,13 +102,18 @@ header div.current-session {
 	flex-direction: column;
 	align-items: flex-end;
 }
-header div.current-session a.login {
+header div.current-session a.registration {
 	white-space: nowrap;
 	border: 1px solid #000;
 	border-radius: 5px;
 	padding: 5px 8px;
 	background-color: #555;
 	color: #fff;
+}
+
+header div.current-session a.registration.disabled {
+	background-color: #aaa;
+	border-color: #555;
 }
 
 header div.current-session a.logout {
