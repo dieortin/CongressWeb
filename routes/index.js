@@ -1,13 +1,11 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	if (req.user) {
-		res.render('index', { title: 'Homepage', user: req.user.personalData, headerImage: true})
-	} else {
-		res.render('index', { title: 'Homepage', headerImage: true})
-	}
+	req.app.locals.renderingOptions.title = 'Homepage'
+	req.app.locals.renderingOptions.headerImage = true
+	res.render('index', req.app.locals.renderingOptions)
 })
 
 module.exports = router

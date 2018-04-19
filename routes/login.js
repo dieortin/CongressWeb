@@ -6,7 +6,9 @@ router.get('/', function(req, res) {
 	if (req.isAuthenticated()) {
 		res.redirect('/restricted')
 	} else {
-		res.render('login', { title: 'Login', error: req.flash('error') })
+		req.app.locals.renderingOptions.title = 'Login'
+		req.app.locals.renderingOptions.error = req.flash('error')
+		res.render('login', req.app.locals.renderingOptions)
 	}
 })
 

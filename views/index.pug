@@ -1,10 +1,43 @@
 extends layout
 
 block content
+	-
+		var invitedSpeakers = [
+			"Enrique Álvarez (U. Autónoma de Madrid/IFT-UAM/CSIC)",
+			"Eric Bergshoeff (U. Groningen)",
+			"J. Antonio Font (U. Valencia)",
+			"M. Ángeles Pérez García (U. Salamanca)",
+			"Harvey Reall (Cambridge U.)",
+			"Sheila Rowan (U. Glasgow)",
+			"Danièle Steer (U. Paris Diderot)",
+			"Nicolas Yunes (U. Montana) (T.B.C.)"]
+		var scientificAdvisoryCommitee = [
+			"Nathalie Deruelle (IHES, Bures-sur-Yvette, France)",
+			"Ruth Durrer (U. of Geneva, Switzerland)",
+			"Roberto Emparan (ICREA and U. Barcelona)",
+			"Valeria Ferrari (NFN, Roma, Italy)",
+			"Jorge Pullin (Louisiana State U., USA)",
+			"José M.M. Senovilla (U. of the Basque Country, Spain)",
+			"Alicia Sintes (U. de les Illes Ballears, Spain)",
+			"Licia Verde (ICC, Spain)"]
 	h1= title
-	p Welcome to #{title}
 	div
-		p #{title} is a webpage for managing the speakers in a congress and viewing its information
-		p The Spanish-Portuguese Relativity Meetings are annual conferences on General Relativity and Gravitation, that date back to 1977. They are organized each year by one of the different groups doing research on Relativity and Gravitation in Portugal and Spain.
-		p The aim of this conference is to provide a forum for researchers and students to present their research results on the main areas of Relativity.
-	a(href='/login') Log in
+		p The 2018 edition of the Spanish-Portuguese Relativistic meeting, backed by the Sociedad Española de Gravitación y Relatividad (SEGRE) will take place in Palencia (Spain), the days 4, 5, 6 and 7 of September 2018.
+		p You can register clicking the button in the top right. Registration will be open from [date] to [date]
+		p The workshop and this webpage are both under construction. Keep an eye on it for further developments.
+	div.homepage-participants-wrapper
+		div.homepage-participants
+			div
+				h2 Invited Speakers:
+				ul
+					each speaker in invitedSpeakers
+						li #{speaker}
+			div
+				h2 Scientific Advisory Committee:
+				ul
+					each sci in scientificAdvisoryCommitee
+						li #{sci}
+
+
+
+	

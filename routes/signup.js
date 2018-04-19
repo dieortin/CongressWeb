@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const router = express.Router()
-const https = require('https')
+//const https = require('https')
 const debugSignup = require('debug')('congressweb:signup')
 require('dotenv').config()
 const request = require('request')
@@ -10,14 +10,18 @@ const querystring = require('querystring')
 const User = require('../models/User')
 
 router.get('/', isAuthenticated, (req, res) => {
-	res.render('signup', { title: 'Register' })
+	req.app.locals.renderingOptions.title = 'Register'
+	res.render('signup', req.app.locals.renderingOptions)
 })
 
 router.get('/:code', function(req, res) {
-	if (req.params.code == 'recaptcha') {res.render('signup', { title: 'Register', error: 'Failed captcha verification' })
+	req.app.locals.renderingOptions.title = 'Register'
+	if (req.params.code == 'recaptcha') {
+		req.app.locals.renderingOptions.error = 'Failed captcha verification'
 	} else {
-		res.render('signup', { title: 'Register', error: code })
+		req.app.locals.renderingOptions.error = req.params.code
 	}
+	res.render('signup', req.app.locals.renderingOptions)
 })
 
 router.post('/', function(req, res, next) {

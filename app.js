@@ -23,6 +23,7 @@ var flash = require('connect-flash');
 /////////// HELPERS /////////////////////////////////////
 const database = require('./helpers/database')
 const auth = require('./helpers/auth')
+const addRenderingData = require('./helpers/addRenderingData')
 /////////////////////////////////////////////////////////
 
 
@@ -115,6 +116,9 @@ function setupPaths() {
 	debugApp('Setting up the application paths')
 
 	return new Promise((resolve, reject) => {
+		// Add the user and registering info to the request
+		app.use(addRenderingData)
+
 		app.all('*', (req, res, next) => {
 			if (req.secure) {
 				return next()

@@ -9,32 +9,34 @@ doctype html
 html
 	head
 		title= title + " | EREP'18"
-		link(href='https://fonts.googleapis.com/css?family=Proza+Libre|Trocchi' rel='stylesheet')
+		link(href='https://fonts.googleapis.com/css?family=Montserrat|Scope+One|Trocchi' rel='stylesheet')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		block extraHead
 	body
 		if headerImage
 			div.bg-image
 		header
-			nav
-				h1 
-					a(href='/') EREP'18
-				ul.section-tabs
-					each tab in sectionTabs
-						li
-							a(href=tab.url) #{tab.name}
-				if user
-					div.current-session
-						span Logged in as 
-							span.bold= user.firstName
-						a.logout(href='/logout') Sign out
-				else
-					div.current-session
-						if registrationEnabled
-							a.button.registration(href='/signup') Registration
-						else
-							div.disabled(tooltiptext='Registrations are not open yet!')
-								a.button.registration.disabled(href='/signup') Registration
+			h1 
+				a(href='/') EREP'18
+			div.header-controls
+				#navicon(onclick='toggleDropdownVisibility()') ☰
+				nav.hidden
+					ul.section-tabs
+						each tab in sectionTabs
+							li
+								a(href=tab.url) #{tab.name}
+					if user
+						div.current-session
+							span Logged in as 
+								span.bold= user.firstName
+							a.logout(href='/logout') Sign out
+					else
+						div.current-session
+							if registrationEnabled
+								a.registration(href='/signup') Registration
+							else
+								div.disabled
+									a.registration.disabled(href='/signup') Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)
@@ -43,4 +45,5 @@ html
 			div.sponsors-grid
 				each val, index in ['one', 'two', 'three', 'four', 'five']
 					div(class=val) Sponsor number #{index} 
+		script(src='/scripts/main.js')
 
