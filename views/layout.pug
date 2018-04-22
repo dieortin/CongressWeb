@@ -44,7 +44,8 @@ html
 			block content
 		footer
 			div.sponsors-grid
-				each val, index in ['one', 'two', 'three', 'four', 'five']
-					div(class=val) Sponsor number #{index} 
+				each sponsor in ['ift', 'severoochoa', 'mineco', 'csic', 'uam']
+					div
+						img(src='/images/'+ sponsor + '-logo.png')
 		script(src='/scripts/main.js')
 

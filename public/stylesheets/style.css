@@ -1,6 +1,7 @@
 :root {
 	--header-height: 70px;
-	--footer-height: 200px;
+	/*--footer-height: 400px;*/
+	--footer-height: 400px;
 	--header-image-size: calc(100vh / 2.4)/*300px*/;
 }
 
@@ -287,13 +288,23 @@ section.main, footer {
 footer {
 	color: #fff;
 	background-color: #333;
-	height: var(--footer-height);
+	min-height: var(--footer-height);
 }
 
 footer .sponsors-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 1em;
+	grid-row-gap: 1em;
 	text-align: center;
+}
+
+/*footer .sponsors-grid div {
+	background-color: #fff;
+}*/
+
+footer .sponsors-grid img {
+	max-width: 100%;
 }
 
 @media screen and (max-width: 600px) {
