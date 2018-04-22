@@ -14,6 +14,7 @@ to be set in order to run:
 * DATABASE_PATH
 * RECAPTCHA_SECRET
 * REGISTRATION_OPENING (for example: 'December 17, 1995 03:24:00')
+* NODE_ENV (if not set, Node will use 'development')
 
 ### SSL Certificate
 A file containing the SSL certificate for the HTTPS server should be located in the 'sslcert' folder, with the name 'cert.pem'. Another file containing the key for said certificate should be located in the same folder, with name 'key.pem'.

@@ -64,9 +64,9 @@ app.use(helmet())
 database.connect()
 	.then(setupPassport)
 	.then(setupPaths)
-	.then(
-		debugApp('Application initialization finished successfully!'))
-	.catch((err) => {
+	.then(() => {
+		debugApp('Application initialization finished successfully!')
+	}).catch((err) => {
 		debugApp('Error found while initializing the application: ' + err)
 	})
 
@@ -74,8 +74,8 @@ database.connect()
 ////////////////     PASSPORT     /////////////////////////
 ///////////////////////////////////////////////////////////
 function setupPassport() {
-	debugApp('Setting up passport')
 	return new Promise((resolve, reject) => {
+		debugApp('Setting up passport')
 		app.use(session({ // Session initialization
 			secret: process.env.SESSION_SECRET,
 			resave: false,
@@ -113,9 +113,8 @@ function setupPassport() {
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
 function setupPaths() {
-	debugApp('Setting up the application paths')
-
 	return new Promise((resolve, reject) => {
+		debugApp('Setting up the application paths')
 		// Add the user and registering info to the request
 		app.use(addRenderingData)
 
@@ -154,12 +153,15 @@ function setupPaths() {
 		app.use(function(err, req, res) {
 			// set locals, only providing error in development
 			res.locals.message = err.message
+			debugApp('env is: ' + req.app.get('env'))
 			res.locals.error = req.app.get('env') === 'development' ? err : {}
 
 			// render the error page
 			res.status(err.status || 500)
 			res.render('error')
 		})
+
+		resolve()
 	})
 
 }
