@@ -43,9 +43,16 @@ html
 		section.main(class=sectionMarginClass)
 			block content
 		footer
+			h2 Sponsored by:
 			div.sponsors-grid
-				each sponsor in ['ift', 'severoochoa', 'mineco', 'csic', 'uam']
-					div
-						img(src='/images/'+ sponsor + '-logo.png')
+				-	
+					var sponsorsData = [{name: 'ift', url: 'https://www.ift.uam-csic.es/'},
+						{name: 'severoochoa', url: 'https://www.icmat.es/es/Severo-Ochoa'},
+						{name: 'mineco', url: 'http://www.mineco.gob.es/'},
+						{name: 'csic', url: 'http://www.csic.es/'},
+						{name: 'uam', url: 'http://uam.es'}]
+				each sponsor in sponsorsData
+					a(href=sponsor.url)
+						img(src='/images/'+ sponsor.name + '-logo.png')
 		script(src='/scripts/main.js')
 

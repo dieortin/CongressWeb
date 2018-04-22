@@ -29,11 +29,11 @@ const addRenderingData = require('./helpers/addRenderingData')
 
 /////////////////////////////////////////////////////////
 /////////// ROUTES //////////////////////////////////////
-const index = require('./routes/index') /////
-const users = require('./routes/users') /////
-const login = require('./routes/login') /////
-const signup = require('./routes/signup') /////
-const restricted = require('./routes/restricted') /////
+const index = require('./routes/index') 			/////
+const users = require('./routes/users') 			/////
+const login = require('./routes/login') 			/////
+const signup = require('./routes/signup') 			/////
+const restricted = require('./routes/restricted')	/////
 /////////////////////////////////////////////////////////
 
 
@@ -146,14 +146,14 @@ function setupPaths() {
 		app.use(function(req, res, next) {
 			var err = new Error('Not Found')
 			err.status = 404
-			next(err)
+			req.app.locals.renderingOptions.title = '404'
+			res.render('404', req.app.locals.renderingOptions)
 		})
 
 		// error handler
 		app.use(function(err, req, res) {
 			// set locals, only providing error in development
 			res.locals.message = err.message
-			debugApp('env is: ' + req.app.get('env'))
 			res.locals.error = req.app.get('env') === 'development' ? err : {}
 
 			// render the error page

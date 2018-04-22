@@ -1,7 +1,6 @@
 :root {
 	--header-height: 70px;
-	/*--footer-height: 400px;*/
-	--footer-height: 400px;
+	--min-footer-height: 200px;
 	--header-image-size: calc(100vh / 2.4)/*300px*/;
 }
 
@@ -55,7 +54,7 @@ div.bg-image {
 	height: var(--header-image-size);
 	position: fixed;
 	z-index: -1;
-	background-image: url(/images/puentecillas.jpg);
+	background-image: url(/images/puentecillas_200w.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -159,12 +158,29 @@ section.no-image-margin {
 }
 
 section.main {
+	display: flex;
+	flex-direction: column;
 	text-align: justify;
-	min-height: calc(100% - var(--footer-height));
+	min-height: calc(100vh - var(--min-footer-height));
 	background-color: #fff;
 	margin-left: 0;
 	margin-right: 0;
 	box-shadow: 0 0 10px 1px #555;
+}
+
+section.not-found {
+	margin: auto;
+	align-self: center;
+	text-align: center;
+	height: 100%;
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+section.not-found h1 {
+	font-size: 9em;
+	margin: 10px auto;
 }
 
 div.homepage-participants-wrapper {
@@ -288,7 +304,7 @@ section.main, footer {
 footer {
 	color: #fff;
 	background-color: #333;
-	min-height: var(--footer-height);
+	min-height: var(--min-footer-height);
 }
 
 footer .sponsors-grid {
@@ -299,9 +315,10 @@ footer .sponsors-grid {
 	text-align: center;
 }
 
-/*footer .sponsors-grid div {
-	background-color: #fff;
-}*/
+footer .sponsors-grid a {
+	display: flex;
+	align-items: center;
+}
 
 footer .sponsors-grid img {
 	max-width: 100%;
@@ -373,5 +390,41 @@ footer .sponsors-grid img {
 	}
 	section.main, footer {
 		padding: 0.5em 1.3em;
+	}
+	footer .sponsors-grid {
+		justify-content: center;
+		grid-template-columns: repeat(1, 0.75fr);
+	}
+}
+@media screen and (min-width: 1280px) {
+	footer .sponsors-grid {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+
+/* INDEX IMAGE SIZES */
+@media (min-width: 300px) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_429w.jpg);
+	}
+}
+@media (min-width: 430px) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_828w.jpg);
+	}
+}
+@media (min-width: 829px) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_1198w.jpg);
+	}
+}
+@media (min-width: 1199px) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_1400w.jpg);
+	}
+}
+@media (min-width: 1401px) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas.jpg);
 	}
 }
