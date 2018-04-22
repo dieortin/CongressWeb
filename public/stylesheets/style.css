@@ -109,10 +109,16 @@ header ul.section-tabs {
 }
 
 header ul.section-tabs li {
+	font-weight: bold;
 	display: inline-block;
 	margin: 0 10px;
-	text-decoration: underline;
+	text-decoration: none;
 }
+
+header ul.section-tabs li a.disabled {
+	color: #888;
+}
+
 
 div.current-session {
 	align-self: center;

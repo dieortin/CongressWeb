@@ -1,6 +1,5 @@
 - 
 	var sectionTabs = [
-		{name: 'Homepage', url: '/'},
 		{name: 'Participants', url: '/participants'},
 		{name: 'Schedule', url: '/schedule'},
 		{name: 'Travel and accomodation', url: '/travel'}]
@@ -22,9 +21,11 @@ html
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
+						li
+							a(href='/') Homepage
 						each tab in sectionTabs
 							li
-								a(href=tab.url) #{tab.name}
+								a.disabled(href=tab.url) #{tab.name}
 					if user
 						div.current-session
 							span Logged in as 
