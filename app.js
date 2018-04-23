@@ -151,6 +151,7 @@ function setupPaths() {
 		})
 
 		// error handler
+		// TODO: prevent this from leaking more data
 		app.use(function(err, req, res) {
 			// set locals, only providing error in development
 			res.locals.message = err.message
