@@ -325,14 +325,37 @@ footer .sponsors-grid img {
 }
 
 @media screen and (max-width: 600px), 
-(max-width: 1200px) and (-webkit-min-device-pixel-ratio: 2), 
-(max-width: 1200px) and (min-resolution: 2dppx) {
+(max-width: 375px) and (-webkit-min-device-pixel-ratio: 2), 
+(max-width: 375px) and (min-resolution: 2dppx) {
+	section.main, footer {
+		padding: 0.5em 1.3em;
+	}
+	footer .sponsors-grid {
+		justify-content: center;
+		grid-template-columns: repeat(1, 0.50fr);
+	}
+}
+
+/* Show the mobile view to portrait + landscape mobile */
+@media screen and (max-width: 667px), 
+(max-width: 667px) and (-webkit-min-device-pixel-ratio: 2), 
+(max-width: 667px) and (min-resolution: 2dppx) {
 	:root {
 		--header-height: 50px;
 		--header-image-size: calc(100vh / 4.4)
 	}
 	body {
 		font-size: 12px;
+	}
+	div.current-session {
+		margin: 0;
+		padding: 0;
+	}
+	div.current-session > div, div.current-session > a {
+		align-self: center;
+		text-align: center;
+		font-size: 1.5em;
+		padding: 0.5em;
 	}
 	header nav {
 		display: flex;
@@ -377,30 +400,12 @@ footer .sponsors-grid img {
 		width: 50%;
 		background: #aaa;
 	}
-	div.current-session {
-		margin: 0;
-		padding: 0;
-	}
-	div.current-session > div, div.current-session > a {
-		align-self: center;
-		text-align: center;
-		font-size: 1.5em;
-		padding: 0.5em;
-	}
 	#navicon {
 		display: block;
 	}
-	section.main, footer {
-		padding: 0.5em 1.3em;
-	}
-	footer .sponsors-grid {
-		justify-content: center;
-		grid-template-columns: repeat(1, 0.75fr);
-	}
 }
-@media screen and (min-width: 1280px), 
-(max-width: 2560px) and (-webkit-min-device-pixel-ratio: 2), 
-(max-width: 2560px) and (min-resolution: 2dppx) {
+
+@media screen and (min-width: 1280px) {
 	footer .sponsors-grid {
 		grid-template-columns: repeat(5, 1fr);
 	}
@@ -412,9 +417,21 @@ footer .sponsors-grid img {
 		background-image: url(/images/puentecillas_429w.jpg);
 	}
 }
+@media (min-width: 300px) and (-webkit-min-device-pixel-ratio: 2),
+(min-width: 300px) and (min-resolution: 2dppx) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_828w.jpg);
+	}
+}
 @media (min-width: 430px) { 
 	div.bg-image {
 		background-image: url(/images/puentecillas_828w.jpg);
+	}
+}
+@media (min-width: 430px) and (-webkit-min-device-pixel-ratio: 2),
+(min-width: 430px) and (min-resolution: 2dppx) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_1198w.jpg);
 	}
 }
 @media (min-width: 829px) { 
@@ -422,9 +439,21 @@ footer .sponsors-grid img {
 		background-image: url(/images/puentecillas_1198w.jpg);
 	}
 }
+@media (min-width: 829px) and (-webkit-min-device-pixel-ratio: 2),
+(min-width: 829px) and (min-resolution: 2dppx) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas_1400w.jpg);
+	}
+}
 @media (min-width: 1199px) { 
 	div.bg-image {
 		background-image: url(/images/puentecillas_1400w.jpg);
+	}
+}
+@media (min-width: 1199px) and (-webkit-min-device-pixel-ratio: 2),
+(min-width: 1199px) and (min-resolution: 2dppx) { 
+	div.bg-image {
+		background-image: url(/images/puentecillas.jpg);
 	}
 }
 @media (min-width: 1401px) { 

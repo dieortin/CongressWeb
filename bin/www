@@ -21,6 +21,7 @@ const options = {
  * Get port from environment and store in Express.
  */
 
+const host = (process.env.HOST || 'localhost')
 const port = normalizePort(process.env.PORT || '3000')
 const sslPort = normalizePort(process.env.SSLPORT || '8443')
 app.set('port', port)
@@ -37,11 +38,11 @@ const legacy = http.createServer(app)
  */
 
 
-sslServer.listen(sslPort)
+sslServer.listen(sslPort, host)
 sslServer.on('error', onError)
 sslServer.on('listening', onListening)
 
-legacy.listen(port)
+legacy.listen(port, host)
 
 /**
  * Normalize a port into a number, string, or false.
@@ -100,6 +101,7 @@ function onListening() {
 	const bind = typeof addr === 'string'
 		? 'pipe ' + addr
 		: 'port ' + addr.port
+	if (host) debug('Host is ' + host)
 	debug('Listening on ' + bind)
 }
 
