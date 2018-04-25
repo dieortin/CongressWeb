@@ -324,7 +324,9 @@ footer .sponsors-grid img {
 	max-width: 100%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), 
+(max-width: 1200px) and (-webkit-min-device-pixel-ratio: 2), 
+(max-width: 1200px) and (min-resolution: 2dppx) {
 	:root {
 		--header-height: 50px;
 		--header-image-size: calc(100vh / 4.4)
@@ -396,7 +398,9 @@ footer .sponsors-grid img {
 		grid-template-columns: repeat(1, 0.75fr);
 	}
 }
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1280px), 
+(max-width: 2560px) and (-webkit-min-device-pixel-ratio: 2), 
+(max-width: 2560px) and (min-resolution: 2dppx) {
 	footer .sponsors-grid {
 		grid-template-columns: repeat(5, 1fr);
 	}
