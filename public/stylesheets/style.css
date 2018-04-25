@@ -54,7 +54,7 @@ div.bg-image {
 	height: var(--header-image-size);
 	position: fixed;
 	z-index: -1;
-	background-image: url(/images/puentecillas_200w.jpg);
+	background-image: url(../images/puentecillas_200w.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -414,50 +414,50 @@ footer .sponsors-grid img {
 /* INDEX IMAGE SIZES */
 @media (min-width: 300px) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_429w.jpg);
+		background-image: url(../images/puentecillas_429w.jpg);
 	}
 }
 @media (min-width: 300px) and (-webkit-min-device-pixel-ratio: 2),
 (min-width: 300px) and (min-resolution: 2dppx) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_828w.jpg);
+		background-image: url(../images/puentecillas_828w.jpg);
 	}
 }
 @media (min-width: 430px) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_828w.jpg);
+		background-image: url(../images/puentecillas_828w.jpg);
 	}
 }
 @media (min-width: 430px) and (-webkit-min-device-pixel-ratio: 2),
 (min-width: 430px) and (min-resolution: 2dppx) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_1198w.jpg);
+		background-image: url(../images/puentecillas_1198w.jpg);
 	}
 }
 @media (min-width: 829px) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_1198w.jpg);
+		background-image: url(../images/puentecillas_1198w.jpg);
 	}
 }
 @media (min-width: 829px) and (-webkit-min-device-pixel-ratio: 2),
 (min-width: 829px) and (min-resolution: 2dppx) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_1400w.jpg);
+		background-image: url(../images/puentecillas_1400w.jpg);
 	}
 }
 @media (min-width: 1199px) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas_1400w.jpg);
+		background-image: url(../images/puentecillas_1400w.jpg);
 	}
 }
 @media (min-width: 1199px) and (-webkit-min-device-pixel-ratio: 2),
 (min-width: 1199px) and (min-resolution: 2dppx) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas.jpg);
+		background-image: url(../images/puentecillas.jpg);
 	}
 }
 @media (min-width: 1401px) { 
 	div.bg-image {
-		background-image: url(/images/puentecillas.jpg);
+		background-image: url(../images/puentecillas.jpg);
 	}
 }
