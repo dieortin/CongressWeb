@@ -126,6 +126,7 @@ function setupPaths() {
 		})
 
 		app.use('/', index)
+		app.use('/index', index)
 		app.use('/users', users)
 		app.use('/login', login)
 		app.use('/signup', signup)
@@ -146,6 +147,7 @@ function setupPaths() {
 		app.use(function(req, res, next) {
 			var err = new Error('Not Found')
 			err.status = 404
+			res.status = 404
 			req.app.locals.renderingOptions.title = '404'
 			res.render('404', req.app.locals.renderingOptions)
 		})
