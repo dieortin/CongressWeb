@@ -11,20 +11,20 @@ html
 		base(href='/erep2018/')
 		meta(name='viewport', content='width=device-width')
 		link(href='https://fonts.googleapis.com/css?family=Montserrat|Scope+One|Trocchi' rel='stylesheet')
-		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='stylesheets/style.css')
 		block extraHead
 	body
 		if headerImage
 			div.bg-image
 		header
 			h1 
-				a(href='/') EREP'18
+				a(href='index') EREP'18
 			div.header-controls
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
 						li
-							a(href='/') Homepage
+							a(href='index') Homepage
 						each tab in sectionTabs
 							li
 								a.disabled(href=tab.url) #{tab.name}
@@ -32,14 +32,14 @@ html
 						div.current-session
 							span Logged in as 
 								span.bold= user.firstName
-							a.logout(href='/logout') Sign out
+							a.logout(href='logout') Sign out
 					else
 						div.current-session
 							if registrationEnabled
-								a.registration(href='/signup') Registration
+								a.registration(href='signup') Registration
 							else
 								div.disabled
-									a.registration.disabled(href='/signup') Registration
+									a.registration.disabled(href='signup') Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)
@@ -55,6 +55,6 @@ html
 						{name: 'uam', url: 'http://uam.es'}]
 				each sponsor in sponsorsData
 					a(href=sponsor.url)
-						img(src='/images/'+ sponsor.name + '-logo.png')
-		script(src='/scripts/main.js')
+						img(src='images/'+ sponsor.name + '-logo.png')
+		script(src='scripts/main.js')
 
