@@ -8,6 +8,7 @@ block content
 			"J. Antonio Font (U. Valencia)",
 			"M. Ángeles Pérez García (U. Salamanca)",
 			"Harvey Reall (Cambridge U.)",
+			"Ted Jacobson (U. Maryland)",
 			"Sheila Rowan (U. Glasgow)",
 			"Danièle Steer (U. Paris Diderot)",
 			"Nicolas Yunes (U. Montana) (T.B.C.)"]
@@ -20,13 +21,41 @@ block content
 			"José M.M. Senovilla (U. of the Basque Country, Spain)",
 			"Alicia Sintes (U. de les Illes Ballears, Spain)",
 			"Licia Verde (ICC, Spain)"]
+                var organizingCommittee = [
+                        "Samuele Chimento (IFT-UAM/CSIC)"
+                        "Patrick Meessen (U. Oviedo)"
+                        "Tomás Ortín (IFT-UAM/CSIC) Contact: Tomas.Ortin [AT] csic.es"
+                        "Samuele Chimento (IFT-UAM/CSIC)"
+                        "Alejandro Ruipérez (IFT-UAM/CSIC)"]
 	h1= title
 	div
-		p The 2018 edition of the Spanish-Portuguese Relativistic meeting, backed by the Sociedad Española de Gravitación y Relatividad (SEGRE) will take place in Palencia (Spain), the days 4, 5, 6 and 7 of September 2018.
-		p You can register clicking the button in the top right. Registration will be open from [date] to [date]
-		p The workshop and this webpage are both under construction. Keep an eye on it for further developments.
+		p The Spanish-Portuguese Relativity Meeting (EREP) is the main
+		meeting of researchers working on gravity and relativity in 
+                Portugal and Spain. It is backed by the Sociedad Española de 
+                Gravitación y Relatividad (<a href="http://segre.es">SEGRE</a>) 
+                and by the Sociedade Portuguesa de Relatividade e Gravitação (SPRG).
+
+                p The 2018 edition is organized by the Institute of Theoretical Physics
+                (IFT-UAM/CSIC) and will take place in Palencia (Spain), the
+                days 4, 5, 6 and 7 of September 2018. A small city with a long
+                history which was home to the first University in the Iberian Peninsula
+                (1212), where everthing is within walking distance and where
+                there will be plenty of places and time to interact.
+
+                p We are planning an attractive scientific meeting with an
+                attractive social and outreach program for all particpants.
+
+		p You can register and submit your abstract by clicking the
+		button in the top right. Registration and abstract submission 
+                will be open from May 15th to August 15th. Thanks to the
+		generous contribution of the IFT's Severo Ochoa grant, the
+		registration fees will be quite modest. Furthermore, the SEGRE
+		offers grants to support the participation of PhD students.
+		
+                p The workshop and this webpage are both under construction. 
+                   Keep an eye on it for further developments.
 	div.homepage-participants-wrapper
-		div.homepage-participants
+	div.homepage-participants
 			div
 				h2 Invited Speakers:
 				ul
@@ -37,6 +66,11 @@ block content
 				ul
 					each sci in scientificAdvisoryCommitee
 						li #{sci}
+		        div
+				h2 Organizing Committee:
+				ul
+					each org in organizingCommittee
+						li #{org}
 
 
 
