@@ -118,6 +118,7 @@ function setupPaths() {
 		// Add the user and registering info to the request
 		app.use(addRenderingData)
 
+		// Redirect all http requests to https
 		app.all('*', (req, res, next) => {
 			if (req.secure) {
 				return next()
@@ -147,7 +148,7 @@ function setupPaths() {
 		app.use(function(req, res, next) {
 			var err = new Error('Not Found')
 			err.status = 404
-			res.status = 404
+			res.statusCode = 404
 			req.app.locals.renderingOptions.title = '404'
 			res.render('404', req.app.locals.renderingOptions)
 		})
