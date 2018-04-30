@@ -11,13 +11,12 @@ require('dotenv').config()
 
 const passport = require('passport')
 const helmet = require('helmet')
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-var flash = require('connect-flash');
+var flash = require('connect-flash')
 
-
+const APP_MOUNT_DIR = '/erep2018'
 
 /////////////////////////////////////////////////////////
 /////////// HELPERS /////////////////////////////////////
@@ -53,7 +52,7 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }))
 app.use(cookieParser())
-app.use(express.static('public'))
+app.use(APP_MOUNT_DIR, express.static('public'))
 app.use(flash())
 
 /// Using helmet to help secure the server
@@ -118,6 +117,7 @@ function setupPaths() {
 		// Add the user and registering info to the request
 		app.use(addRenderingData)
 
+		// Redirect all http requests to https
 		app.all('*', (req, res, next) => {
 			if (req.secure) {
 				return next()
@@ -125,21 +125,21 @@ function setupPaths() {
 			res.redirect('https://' + req.hostname + req.path)
 		})
 
-		app.use('/', index)
-		app.use('/index', index)
-		app.use('/users', users)
-		app.use('/login', login)
-		app.use('/signup', signup)
-		app.use('/restricted', restricted)
+		app.use(APP_MOUNT_DIR + '/', index)
+		app.use(APP_MOUNT_DIR + '/index', index)
+		app.use(APP_MOUNT_DIR + '/users', users)
+		app.use(APP_MOUNT_DIR + '/login', login)
+		app.use(APP_MOUNT_DIR + '/signup', signup)
+		app.use(APP_MOUNT_DIR + '/restricted', restricted)
 
-		app.get('/logout', (req, res) => {
+		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()
-			res.redirect('/')
+			res.redirect(APP_MOUNT_DIR + '/')
 		})
 
-		app.post('/auth', passport.authenticate('local', {
-			successRedirect: '/restricted',
-			failureRedirect: '/login',
+		app.post(APP_MOUNT_DIR + '/auth', passport.authenticate('local', {
+			successRedirect: APP_MOUNT_DIR + '/restricted',
+			failureRedirect: APP_MOUNT_DIR + '/login',
 			failureFlash: true
 		}))
 
@@ -147,7 +147,7 @@ function setupPaths() {
 		app.use(function(req, res, next) {
 			var err = new Error('Not Found')
 			err.status = 404
-			res.status = 404
+			res.statusCode = 404
 			req.app.locals.renderingOptions.title = '404'
 			res.render('404', req.app.locals.renderingOptions)
 		})
