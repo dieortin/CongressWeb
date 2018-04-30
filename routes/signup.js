@@ -7,6 +7,8 @@ require('dotenv').config()
 const request = require('request')
 const querystring = require('querystring')
 
+const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
+
 const User = require('../models/User')
 
 router.get('/', isAuthenticated, (req, res) => {
@@ -40,7 +42,7 @@ router.post('/', function(req, res, next) {
 		if (googleBody.success) {
 			next()
 		} else {
-			res.redirect('/signup/recaptcha')
+			res.redirect(APP_MOUNT_DIR + '/signup/recaptcha')
 		}
 	})
 }, function(req, res) {
@@ -85,12 +87,12 @@ router.post('/', function(req, res, next) {
 		})
 	})
 
-	res.redirect('/login')
+	res.redirect(APP_MOUNT_DIR + '/login')
 })
 
 function isAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
-		res.redirect('/restricted')
+		res.redirect(APP_MOUNT_DIR + '/restricted')
 	} else {
 		next()
 	}
