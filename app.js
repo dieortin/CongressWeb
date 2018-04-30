@@ -16,7 +16,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 var flash = require('connect-flash')
 
-const APP_MOUNT_DIR = '/erep2018'
+const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
 /////////////////////////////////////////////////////////
 /////////// HELPERS /////////////////////////////////////
