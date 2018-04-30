@@ -81,7 +81,8 @@ router.post('/', function(req, res, next) {
 		debugRegistration(`New Participant registered: ${firstName} ${familyName}`)
 	})
 
-	res.redirect(APP_MOUNT_DIR + '/login')
+	//res.redirect(APP_MOUNT_DIR + '/login')
+	res.render('registration-success', req.app.locals.renderingOptions)
 
 	// CODE FOR HANDLING AUTHENTICATED USER REGISTRATION
 	// bcrypt.hash(password, 10, function(err, hash) {
