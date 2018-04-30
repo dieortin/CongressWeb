@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	if participants.count == 0
+		ol
+			each p in participants
+				li #{p.personalData.firstName}
+					button(onclick=`approveParticipant('${p.id}', this.parentNode)`) Approve
+	else
+		div.centered
+			h1 There are no unapproved requests right now!

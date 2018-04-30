@@ -1,0 +1,6 @@
+extends layout
+
+block content
+	ol
+		each p in participants
+			li #{p.personalData.firstName}

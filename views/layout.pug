@@ -1,8 +1,8 @@
 - 
 	var sectionTabs = [
-		{name: 'Participants', url: '/participants'},
-		{name: 'Schedule', url: '/schedule'},
-		{name: 'Travel and accomodation', url: '/travel'}]
+		{name: 'Participants', url: 'participants'},
+		{name: 'Schedule', url: 'schedule'},
+		{name: 'Travel and accomodation', url: 'travel'}]
 
 doctype html
 html
@@ -27,7 +27,7 @@ html
 							a(href='index') Homepage
 						each tab in sectionTabs
 							li
-								a.disabled(href=tab.url) #{tab.name}
+								a(href=tab.url) #{tab.name}
 					if user
 						div.current-session
 							span Logged in as 

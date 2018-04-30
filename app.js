@@ -26,14 +26,16 @@ const addRenderingData = require('./helpers/addRenderingData')
 /////////////////////////////////////////////////////////
 
 
-///////////////////////////////////////////////////////////
-/////////// ROUTES ////////////////////////////////////////
-const index = require('./routes/index') 			  /////
-const users = require('./routes/users') 			  /////
-const login = require('./routes/login') 			  /////
-const registration = require('./routes/registration') /////
-const restricted = require('./routes/restricted')	  /////
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+/////////// ROUTES /////////////////////////////////////////////////
+const index = require('./routes/index')
+const users = require('./routes/users')
+const login = require('./routes/login')
+const registration = require('./routes/registration')
+const restricted = require('./routes/restricted')
+const participants = require('./routes/participants')
+const manageParticipants = require ('./routes/manageParticipants')
+////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////
@@ -130,6 +132,8 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/login', login)
 		app.use(APP_MOUNT_DIR + '/registration', registration)
 		app.use(APP_MOUNT_DIR + '/restricted', restricted)
+		app.use(APP_MOUNT_DIR + '/participants', participants)
+		app.use(APP_MOUNT_DIR + '/manageParticipants', manageParticipants)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const participantSchema = mongoose.Schema({
+	approved: {
+		type: Boolean,
+		default: false
+	},
 	personalData: {
 		title: {
 			type: String,

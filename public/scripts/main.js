@@ -6,3 +6,20 @@ function toggleDropdownVisibility() {
 		element.classList.add('hidden')
 	}
 }
+
+function approveParticipant(id, el) {
+	const req = new XMLHttpRequest()
+	req.addEventListener('load', () => {
+		console.log('Request sent')
+	})
+
+	req.onreadystatechange = () => {
+		if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+			console.log('Correct approval, removing participant from list')
+			el.parentNode.removeChild(el)
+		}
+	}
+
+	req.open('POST', 'manageParticipants/approve/' + id)
+	req.send()
+}
