@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 //const https = require('https')
-const debugSignup = require('debug')('congressweb:signup')
+const debugRegistration = require('debug')('congressweb:registration')
 require('dotenv').config()
 const request = require('request')
 const querystring = require('querystring')
@@ -11,7 +11,7 @@ const User = require('../models/User')
 
 router.get('/', isAuthenticated, (req, res) => {
 	req.app.locals.renderingOptions.title = 'Register'
-	res.render('signup', req.app.locals.renderingOptions)
+	res.render('registration', req.app.locals.renderingOptions)
 })
 
 router.get('/:code', function(req, res) {
@@ -21,7 +21,7 @@ router.get('/:code', function(req, res) {
 	} else {
 		req.app.locals.renderingOptions.error = req.params.code
 	}
-	res.render('signup', req.app.locals.renderingOptions)
+	res.render('registration', req.app.locals.renderingOptions)
 })
 
 router.post('/', function(req, res, next) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
 		if (googleBody.success) {
 			next()
 		} else {
-			res.redirect('/signup/recaptcha')
+			res.redirect('/registration/recaptcha')
 		}
 	})
 }, function(req, res) {

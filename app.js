@@ -26,14 +26,14 @@ const addRenderingData = require('./helpers/addRenderingData')
 /////////////////////////////////////////////////////////
 
 
-/////////////////////////////////////////////////////////
-/////////// ROUTES //////////////////////////////////////
-const index = require('./routes/index') 			/////
-const users = require('./routes/users') 			/////
-const login = require('./routes/login') 			/////
-const signup = require('./routes/signup') 			/////
-const restricted = require('./routes/restricted')	/////
-/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+/////////// ROUTES ////////////////////////////////////////
+const index = require('./routes/index') 			  /////
+const users = require('./routes/users') 			  /////
+const login = require('./routes/login') 			  /////
+const registration = require('./routes/registration') /////
+const restricted = require('./routes/restricted')	  /////
+///////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/index', index)
 		app.use(APP_MOUNT_DIR + '/users', users)
 		app.use(APP_MOUNT_DIR + '/login', login)
-		app.use(APP_MOUNT_DIR + '/signup', signup)
+		app.use(APP_MOUNT_DIR + '/registration', registration)
 		app.use(APP_MOUNT_DIR + '/restricted', restricted)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {

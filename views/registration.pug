@@ -7,19 +7,7 @@ block content
 	h1 Sign up
 	if (error)
 		div.error= error
-	form.signup(action='/signup' method='post')
-		fieldset
-			legend Account credentials
-			div
-				label Email address: 
-				input.withValidity(required type='email' name='email')
-				span.validity
-			div
-				label Password: 
-				input(required type='password' name='password')
-			div
-				label Confirm Password: 
-				input(required type='password')
+	form.registration(action='/registration' method='post')
 		fieldset
 			legend Personal data
 			div

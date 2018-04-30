@@ -209,33 +209,33 @@ div.homepage-participants ul li {
 	margin-bottom: 4px;
 }
 
-form.signup {
+form.registration {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	align-items: center;
 }
 
-form.signup > fieldset {
+form.registration > fieldset {
 	border: 1px solid #000;
 	padding: 15px;
 	margin: 10px auto;
 	width: 50%;
 }
 
-form.signup > fieldset > legend {
+form.registration > fieldset > legend {
 	background-color: #444;
 	color: #fff;
 	padding: 3px 6px;
 }
 
-form.signup > fieldset > div {
+form.registration > fieldset > div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-form.signup > fieldset > div > * {
+form.registration > fieldset > div > * {
 	margin: 0;
 }
 
@@ -243,19 +243,19 @@ form input, form label {
 	margin: 5px auto;
 }
 
-form.signup > fieldset > div > input, form.signup > fieldset > div > select{
+form.registration > fieldset > div > input, form.registration > fieldset > div > select{
 	width: 75%;
 	margin-right: 20px;
 }
 
-form.signup > fieldset > div > label {
+form.registration > fieldset > div > label {
 	width: 25%;
 	min-width: 130px;
 	text-align: right;
 	margin-right: 5px;
 }
 
-form.signup > fieldset > div > input.withValidity {
+form.registration > fieldset > div > input.withValidity {
 	margin-right: 0;
 }
 
@@ -275,14 +275,14 @@ input:valid+span:after {
 	color: #009000;
 }
 
-form.signup div.submitArea {
+form.registration div.submitArea {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: calc(50% + 34px);
 }
 
-form.signup div.submitArea > * {
+form.registration div.submitArea > * {
 	margin: auto 5px;
 }
 
