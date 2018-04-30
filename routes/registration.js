@@ -1,7 +1,6 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
+//const bcrypt = require('bcrypt')
 const router = express.Router()
-//const https = require('https')
 const debugRegistration = require('debug')('congressweb:registration')
 require('dotenv').config()
 const request = require('request')
@@ -9,7 +8,7 @@ const querystring = require('querystring')
 
 const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
-const User = require('../models/User')
+const Participant = require('../models/Participant')
 
 router.get('/', isAuthenticated, (req, res) => {
 	req.app.locals.renderingOptions.title = 'Register'
@@ -35,7 +34,7 @@ router.post('/', function(req, res, next) {
 		remoteip: req.ip
 	}
 
-	const verificationURL =  'https://www.google.com/recaptcha/api/siteverify?' +  querystring.stringify(body)
+	const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?' + querystring.stringify(body)
 
 	request(verificationURL, (err, googleResponse, googleBody) => {
 		googleBody = JSON.parse(googleBody)
@@ -46,8 +45,6 @@ router.post('/', function(req, res, next) {
 		}
 	})
 }, function(req, res) {
-	const email = req.body.email
-	const password = req.body.password
 	const title = req.body.title
 	const firstName = req.body.firstName
 	const familyName = req.body.familyName
@@ -57,37 +54,63 @@ router.post('/', function(req, res, next) {
 	const arrivalDate = req.body.arrivalDate
 	const departureDate = req.body.departureDate
 
-	console.log('Creating new user with email ' + email + ' and password ' + password)
+	//console.log("Request body: %j", req.body)
 
-	bcrypt.hash(password, 10, function(err, hash) {
-		const newUser = new User({
-			authData: {
-				email: email,
-				passwordHash: hash
-			},
-			personalData: {
-				title: title,
-				firstName: firstName,
-				familyName: familyName,
-				phoneNumber: phoneNumber
-			},
-			affiliation: {
-				name: affiliationName,
-				address: affiliationAddress
-			},
-			dateOf: {
-				arrival: arrivalDate,
-				departure: departureDate
-			}
-		})
-		newUser.save((err/*, newUser*/) => {
-			if (err) {
-				return console.error(err)
-			}
-		})
+	debugRegistration(`New Participant registration attempt: ${firstName} ${familyName}`)
+
+	const newParticipant = new Participant({
+		personalData: {
+			title: title,
+			firstName: firstName,
+			familyName: familyName,
+			phoneNumber: phoneNumber
+		},
+		affiliation: {
+			name: affiliationName,
+			address: affiliationAddress
+		},
+		dateOf: {
+			arrival: arrivalDate,
+			departure: departureDate
+		}
+	})
+	newParticipant.save((err /*, newUser*/ ) => {
+		if (err) {
+			return console.error(err)
+		}
+		debugRegistration(`New Participant registered: ${firstName} ${familyName}`)
 	})
 
 	res.redirect(APP_MOUNT_DIR + '/login')
+
+	// CODE FOR HANDLING AUTHENTICATED USER REGISTRATION
+	// bcrypt.hash(password, 10, function(err, hash) {
+	// 	const newParticipant = new Participant({
+	// 		authData: {
+	// 			email: email,
+	// 			passwordHash: hash
+	// 		},
+	// 		personalData: {
+	// 			title: title,
+	// 			firstName: firstName,
+	// 			familyName: familyName,
+	// 			phoneNumber: phoneNumber
+	// 		},
+	// 		affiliation: {
+	// 			name: affiliationName,
+	// 			address: affiliationAddress
+	// 		},
+	// 		dateOf: {
+	// 			arrival: arrivalDate,
+	// 			departure: departureDate
+	// 		}
+	// 	})
+	// 	newUser.save((err/*, newUser*/) => {
+	// 		if (err) {
+	// 			return console.error(err)
+	// 		}
+	// 	})
+	// })
 })
 
 function isAuthenticated(req, res, next) {

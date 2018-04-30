@@ -57,7 +57,6 @@ app.use(flash())
 
 /// Using helmet to help secure the server
 app.use(helmet())
-//app.use(redirectToHTTPS()) TODO: Get this working
 //////////////////////////////////////////////////////////
 
 database.connect()
@@ -157,6 +156,7 @@ function setupPaths() {
 		app.use(function(err, req, res) {
 			// set locals, only providing error in development
 			res.locals.message = err.message
+			debugApp('Current env is: ' + req.app.get('env'))
 			res.locals.error = req.app.get('env') === 'development' ? err : {}
 
 			// render the error page
