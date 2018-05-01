@@ -1,36 +1,36 @@
 extends layout
 
 block content
-	h2 Pending participants:
-	if participants.length > 0
-		table
-			thead
-				tr
-					th Full name
-					th Phone #
-					th Affiliation
-					th Aff. address
-					th Arrival
-					th Departure
-					th Abstract?
-					th
-			tbody
-				each p in participants
-					tr(id=p.id)
-						td #{p.personalData.title} #{p.personalData.firstName} #{p.personalData.familyName}
-						td #{p.personalData.phoneNumber}
-						td #{p.affiliation.name}
-						td #{p.affiliation.address}
-						td #{p.dateOf.arrival}
-						td #{p.dateOf.departure}
-						if p.talk.exists
-							//- TODO: Add a way to view abstracts
-							td Yes
-						else
-							td No
-						td
-							button.approve(onclick=`approveParticipant('${p.id}')`) Approve
-							button.reject(onclick=`rejectParticipant('${p.id}')`) Reject
-	else
-		div.centered
-			h1 There are no unapproved requests right now!
+	div.centered
+		h2 Pending participants:
+		if participants.length > 0
+			table
+				thead
+					tr
+						th Full name
+						th Phone #
+						th Affiliation
+						th Aff. address
+						th Arrival
+						th Departure
+						th Abstract?
+						th
+				tbody
+					each p in participants
+						tr(id=p.id)
+							td #{p.fullName}
+							td #{p.phoneNumber}
+							td #{p.affName}
+							td #{p.affAddress}
+							td #{p.arrival}
+							td #{p.departure}
+							if p.hasTalk
+								td: a(href=`abstract/${p.id}`) #{p.talkTitle}
+							else
+								td No
+							td
+								button.approve(onclick=`approveParticipant('${p.id}')`) Approve
+								button.reject(onclick=`rejectParticipant('${p.id}')`) Reject
+		else
+			div.centered
+				h1 There are no unapproved requests right now!

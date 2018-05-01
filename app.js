@@ -23,6 +23,7 @@ const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 const database = require('./helpers/database')
 const auth = require('./helpers/auth')
 const addRenderingData = require('./helpers/addRenderingData')
+const checkAuth = require('./helpers/checkAuth')
 /////////////////////////////////////////////////////////
 
 
@@ -32,11 +33,11 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const login = require('./routes/login')
 const registration = require('./routes/registration')
-const restricted = require('./routes/restricted')
 const participants = require('./routes/participants')
 const manageParticipants = require ('./routes/manageParticipants')
 const admin = require('./routes/admin')
 const userRegistration = require('./routes/userRegistration')
+const abstract = require('./routes/abstract')
 ////////////////////////////////////////////////////////////////////
 
 
@@ -133,11 +134,11 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/users', users)
 		app.use(APP_MOUNT_DIR + '/login', login)
 		app.use(APP_MOUNT_DIR + '/registration', registration)
-		app.use(APP_MOUNT_DIR + '/restricted', restricted)
 		app.use(APP_MOUNT_DIR + '/participants', participants)
-		app.use(APP_MOUNT_DIR + '/manageParticipants', manageParticipants)
-		app.use(APP_MOUNT_DIR + '/admin', admin)
+		app.use(APP_MOUNT_DIR + '/manageParticipants', checkAuth, manageParticipants)
+		app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
 		app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
+		app.use(APP_MOUNT_DIR + '/abstract', abstract)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()

@@ -58,7 +58,7 @@ const participantSchema = mongoose.Schema({
 			required: false //TODO: should be required when talk exists
 		},
 		duration: Number,
-		aditionalInfo: String
+		additionalInfo: String
 	},
 	scholarship: {
 		doesApply: {
@@ -67,6 +67,10 @@ const participantSchema = mongoose.Schema({
 			default: false
 		},
 
+	},
+	additionalInfo: {
+		type: String,
+		required: false
 	}
 })
 

@@ -1,5 +1,4 @@
 const express = require('express')
-//const bcrypt = require('bcrypt')
 const router = express.Router()
 const debugRegistration = require('debug')('congressweb:registration')
 require('dotenv').config()
@@ -45,73 +44,66 @@ router.post('/', function(req, res, next) {
 		}
 	})
 }, function(req, res) {
-	const title = req.body.title
-	const firstName = req.body.firstName
-	const familyName = req.body.familyName
-	const phoneNumber = req.body.phoneNumber
-	const affiliationName = req.body.affiliationName
-	const affiliationAddress = req.body.affiliationAddress
-	const arrivalDate = req.body.arrivalDate
-	const departureDate = req.body.departureDate
-
 	//console.log("Request body: %j", req.body)
 
-	debugRegistration(`New Participant registration attempt: ${firstName} ${familyName}`)
+	debugRegistration(`New Participant registration attempt: ${req.body.firstName} ${req.body.familyName}`)
 
-	const newParticipant = new Participant({
-		personalData: {
-			title: title,
-			firstName: firstName,
-			familyName: familyName,
-			phoneNumber: phoneNumber
-		},
-		affiliation: {
-			name: affiliationName,
-			address: affiliationAddress
-		},
-		dateOf: {
-			arrival: arrivalDate,
-			departure: departureDate
-		}
-	})
+	var newParticipant
+
+	if (req.body.talkExists == 'on') {
+		newParticipant = new Participant({
+			personalData: {
+				title: req.body.title,
+				firstName: req.body.firstName,
+				familyName: req.body.familyName,
+				phoneNumber: req.body.phoneNumber
+			},
+			affiliation: {
+				name: req.body.affiliationName,
+				address: req.body.affiliationAddress
+			},
+			dateOf: {
+				arrival: req.body.arrivalDate,
+				departure: req.body.departureDate
+			},
+			talk: {
+				exists: true,
+				title: req.body.talkTitle,
+				abstract: req.body.talkAbstract,
+				duration: req.body.talkDuration,
+				additionalInfo: req.body.talkAdditionalInfo
+			},
+			additionalInfo: req.body.additionalInfo
+		})
+	} else {
+		newParticipant = new Participant({
+			personalData: {
+				title: req.body.title,
+				firstName: req.body.firstName,
+				familyName: req.body.familyName,
+				phoneNumber: req.body.phoneNumber
+			},
+			affiliation: {
+				name: req.body.affiliationName,
+				address: req.body.affiliationAddress
+			},
+			dateOf: {
+				arrival: req.body.arrivalDate,
+				departure: req.body.departureDate
+			},
+			additionalInfo: req.body.additionalInfo
+		})
+	}
+
 	newParticipant.save((err /*, newUser*/ ) => {
 		if (err) {
 			return console.error(err)
 		}
-		debugRegistration(`New Participant registered: ${firstName} ${familyName}`)
+		debugRegistration(`New Participant registered: ${req.body.firstName} ${req.body.familyName}`)
 	})
 
-	//res.redirect(APP_MOUNT_DIR + '/login')
+	req.app.locals.renderingOptions.title = 'Success!'
 	res.render('registration-success', req.app.locals.renderingOptions)
-
-	// CODE FOR HANDLING AUTHENTICATED USER REGISTRATION
-	// bcrypt.hash(password, 10, function(err, hash) {
-	// 	const newParticipant = new Participant({
-	// 		authData: {
-	// 			email: email,
-	// 			passwordHash: hash
-	// 		},
-	// 		personalData: {
-	// 			title: title,
-	// 			firstName: firstName,
-	// 			familyName: familyName,
-	// 			phoneNumber: phoneNumber
-	// 		},
-	// 		affiliation: {
-	// 			name: affiliationName,
-	// 			address: affiliationAddress
-	// 		},
-	// 		dateOf: {
-	// 			arrival: arrivalDate,
-	// 			departure: departureDate
-	// 		}
-	// 	})
-	// 	newUser.save((err/*, newUser*/) => {
-	// 		if (err) {
-	// 			return console.error(err)
-	// 		}
-	// 	})
-	// })
 })
 
 function isAuthenticated(req, res, next) {

@@ -248,7 +248,8 @@ form input, form label {
 	margin: 5px auto;
 }
 
-form.registration > fieldset > div > input, form.registration > fieldset > div > select{
+form.registration > fieldset > div > input, form.registration > fieldset > div > select, 
+form.registration > fieldset > div > textarea {
 	width: 75%;
 	margin-right: 20px;
 }
