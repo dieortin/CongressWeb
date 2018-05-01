@@ -35,6 +35,8 @@ const registration = require('./routes/registration')
 const restricted = require('./routes/restricted')
 const participants = require('./routes/participants')
 const manageParticipants = require ('./routes/manageParticipants')
+const admin = require('./routes/admin')
+const userRegistration = require('./routes/userRegistration')
 ////////////////////////////////////////////////////////////////////
 
 
@@ -134,6 +136,8 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/restricted', restricted)
 		app.use(APP_MOUNT_DIR + '/participants', participants)
 		app.use(APP_MOUNT_DIR + '/manageParticipants', manageParticipants)
+		app.use(APP_MOUNT_DIR + '/admin', admin)
+		app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()
@@ -141,7 +145,7 @@ function setupPaths() {
 		})
 
 		app.post(APP_MOUNT_DIR + '/auth', passport.authenticate('local', {
-			successRedirect: APP_MOUNT_DIR + '/restricted',
+			successRedirect: APP_MOUNT_DIR + '/admin',
 			failureRedirect: APP_MOUNT_DIR + '/login',
 			failureFlash: true
 		}))

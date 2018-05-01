@@ -23,6 +23,9 @@ html
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
+						if user
+							li
+								a(href='admin') Administration
 						li
 							a(href='index') Homepage
 						each tab in sectionTabs
@@ -31,7 +34,7 @@ html
 					if user
 						div.current-session
 							span Logged in as 
-								span.bold= user.firstName
+								span.bold= user
 							a.logout(href='logout') Sign out
 					else
 						div.current-session
@@ -39,7 +42,7 @@ html
 								a.registration(href='registration') Registration
 							else
 								div.disabled
-									a.registration.disabled(href='signup') Registration
+									a.registration.disabled(href='registration') Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)

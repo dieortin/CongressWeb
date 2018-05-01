@@ -2,22 +2,22 @@ const bcrypt = require('bcrypt')
 const User = require('../models/User.js')
 const debugAuth = require('debug')('congressweb:auth')
 
-function verifyCredentials(email, password, done) {
-	findUser(email, password, done, verifyPassword)
+function verifyCredentials(username, password, done) {
+	findUser(username, password, done, verifyPassword)
 }
 
-function findUser(email, password, done, callback) {
-	User.findOne({'authData.email': email}, 'authData.email authData.passwordHash', (err, user) => {
+function findUser(username, password, done, callback) {
+	User.findOne({'username': username}, 'username passwordHash', (err, user) => {
 		if (err) {
 			return console.error(err)
 		}
 		if (!user) {
-			debugAuth('email ' + email + ' not found!')
+			debugAuth('username ' + username + ' not found!')
 			return done(null, false, {
-				message: 'Incorrect email or password'
+				message: 'Incorrect username or password'
 			})
 		} else {
-			debugAuth('Verifying password ' + password + ' for email ' + email)
+			debugAuth('Verifying password ' + password + ' for username ' + username)
 			return callback(null, user, password, done)
 		}
 	})
@@ -25,17 +25,17 @@ function findUser(email, password, done, callback) {
 
 function verifyPassword(err, user, password, done) {
 	/// Always use hashed passwords and fixed time comparison
-	bcrypt.compare(password, user.authData.passwordHash, (err, isValid) => {
+	bcrypt.compare(password, user.passwordHash, (err, isValid) => {
 		if (err) {
 			return done(err)
 		}
 		if (!isValid) {
-			debugAuth('The password ' + password + ' is invalid for user ' + user.authData.email)
+			debugAuth('The password ' + password + ' is invalid for user ' + user.username)
 			return done(null, false, {
-				message: 'Incorrect email or password.'
+				message: 'Incorrect username or password.'
 			})
 		}
-		debugAuth('The password ' + password + ' is valid for user ' + user.authData.email)
+		debugAuth('The password ' + password + ' is valid for user ' + user.username)
 		return done(null, user)
 	})
 }

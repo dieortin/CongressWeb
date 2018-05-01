@@ -302,7 +302,51 @@ input[type='submit'] {
 	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08);
 }
 
+table {
+  border-collapse: collapse;
+}
 
+table th {
+	color: #fff;
+	background-color: #333;
+}
+
+table, table th, table td {
+	border: solid thin black;
+}
+
+button {
+	cursor: pointer;
+	border-style: solid;
+}
+
+button.approve {
+	background-color: #008000;
+	border-color: #005000;
+	border-radius: 5px 0 0 5px;
+}
+
+button.approve:hover {
+	background-color: #00b000;
+}
+
+button.approve:active {
+	background-color: #005000;
+}
+
+button.reject {
+	background-color: #ff0000;
+	border-color: #bb0000;
+	border-radius: 0 5px 5px 0;
+}
+
+button.reject:hover {
+	background-color: #ff5555;
+}
+
+button.reject:active {
+	background-color: #bb0000;
+}
 
 section.main, footer {
 	padding: 1.5em 4em;
