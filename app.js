@@ -16,7 +16,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 var flash = require('connect-flash')
 
-const APP_MOUNT_DIR = '/erep2018'
+const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
 /////////////////////////////////////////////////////////
 /////////// HELPERS /////////////////////////////////////
@@ -28,6 +28,7 @@ const addRenderingData = require('./helpers/addRenderingData')
 
 /////////////////////////////////////////////////////////
 /////////// ROUTES //////////////////////////////////////
+const practicalInfo = require('./routes/practicalInfo')
 const index = require('./routes/index') 			/////
 const users = require('./routes/users') 			/////
 const login = require('./routes/login') 			/////
@@ -131,6 +132,7 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/login', login)
 		app.use(APP_MOUNT_DIR + '/signup', signup)
 		app.use(APP_MOUNT_DIR + '/restricted', restricted)
+		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()
