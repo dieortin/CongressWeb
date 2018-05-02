@@ -5,3 +5,5 @@ router.get('/', (req, res) => {
 	req.app.locals.renderingOptions.title = 'Practical information'
 	res.render('practicalInfo', req.app.locals.renderingOptions)
 })
+
+module.exports = router
