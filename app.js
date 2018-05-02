@@ -28,6 +28,7 @@ const addRenderingData = require('./helpers/addRenderingData')
 
 /////////////////////////////////////////////////////////
 /////////// ROUTES //////////////////////////////////////
+const practicalInfo = require('./routes/practicalInfo')
 const index = require('./routes/index') 			/////
 const users = require('./routes/users') 			/////
 const login = require('./routes/login') 			/////
@@ -131,6 +132,7 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/login', login)
 		app.use(APP_MOUNT_DIR + '/signup', signup)
 		app.use(APP_MOUNT_DIR + '/restricted', restricted)
+		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()
