@@ -26,7 +26,6 @@ const addRenderingData = require('./helpers/addRenderingData')
 const checkAuth = require('./helpers/checkAuth')
 /////////////////////////////////////////////////////////
 
-
 ////////////////////////////////////////////////////////////////////
 /////////// ROUTES /////////////////////////////////////////////////
 const index = require('./routes/index')
@@ -38,8 +37,8 @@ const manageParticipants = require ('./routes/manageParticipants')
 const admin = require('./routes/admin')
 const userRegistration = require('./routes/userRegistration')
 const abstract = require('./routes/abstract')
+const practicalInfo = require('./routes/practicalInfo')
 ////////////////////////////////////////////////////////////////////
-
 
 /////////////////////////////////////////////////////////
 /////////// BASIC EXPRESS SETUP /////////////////////////
@@ -139,6 +138,7 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
 		app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
 		app.use(APP_MOUNT_DIR + '/abstract', abstract)
+		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
 			req.logout()

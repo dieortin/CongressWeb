@@ -2,7 +2,7 @@
 	var sectionTabs = [
 		{name: 'Participants', url: 'participants'},
 		{name: 'Schedule', url: 'schedule'},
-		{name: 'Travel and accomodation', url: 'travel'}]
+		{name: 'Practical information', url: 'practicalInfo'}]
 
 doctype html
 html
@@ -52,10 +52,15 @@ html
 			div.sponsors-grid
 				-	
 					var sponsorsData = [{name: 'ift', url: 'https://www.ift.uam-csic.es/'},
-						{name: 'severoochoa', url: 'https://www.icmat.es/es/Severo-Ochoa'},
+						{name: 'severoochoa', url: 'https://www.ift.uam-csic.es/severoochoa/en/introduction/'},
+						{name: 'fecyt', url: 'https://www.fecyt.es'},
+						{name: 'segre', url: 'http://www.mineco.gob.es/'},
 						{name: 'mineco', url: 'http://www.mineco.gob.es/'},
 						{name: 'csic', url: 'http://www.csic.es/'},
-						{name: 'uam', url: 'http://uam.es'}]
+						{name: 'uam', url: 'http://uam.es'},
+						{name: 'ayuntamientodepalencia', url: 'https://www.aytopalencia.es'},
+						{name: 'diputaciondepalencia', url: 'https://www.diputaciondepalencia.es'},
+						{name: 'juntadecastillayleon', url: 'https://www.jcyl.es'}]
 				each sponsor in sponsorsData
 					a(href=sponsor.url)
 						img(src='images/'+ sponsor.name + '-logo.png')
