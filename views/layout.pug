@@ -1,9 +1,3 @@
-- 
-	var sectionTabs = [
-		{name: 'Participants', url: 'participants'},
-		{name: 'Schedule', url: 'schedule'},
-		{name: 'Practical information', url: 'practicalInfo'}]
-
 doctype html
 html
 	head
@@ -24,11 +18,10 @@ html
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
-						li
-							a(href='index') Homepage
-						each tab in sectionTabs
-							li
-								a.disabled(href=tab.url) #{tab.name}
+						li: a(href='index') Homepage
+						li: a.disabled(href='participants') Participants
+						li: a.disabled(href='schedule') Schedule
+						li: a(href='practicalInfo') Practical information
 					if user
 						div.current-session
 							span Logged in as 
@@ -51,6 +44,7 @@ html
 				-	
 					var sponsorsData = [{name: 'ift', url: 'https://www.ift.uam-csic.es/'},
 						{name: 'severoochoa', url: 'https://www.ift.uam-csic.es/severoochoa/en/introduction/'},
+						{name: 'rtrg', url: 'https://www.facebook.com/RedTRG/'},
 						{name: 'fecyt', url: 'https://www.fecyt.es'},
 						{name: 'segre', url: 'http://www.mineco.gob.es/'},
 						{name: 'mineco', url: 'http://www.mineco.gob.es/'},
