@@ -76,4 +76,25 @@ router.post('/reject/:id', (req, res) => {
 	})
 })
 
+router.post('/revoke/:id', (req, res) => {
+	debugParticipants(`Revoking participant with id ${req.params.id}`)
+	Participant.findById(req.params.id, (err, participant) => {
+		if (err) {
+			debugParticipants(`Error while searching for participant ${req.params.id}`)
+		}
+		participant.approved = false
+		participant.save((err) => {
+			if (err) {
+				debugParticipants(`Error while saving updated participant ${req.params.id}`)
+				res.statusCode = 500
+				res.end()
+			} else {
+				res.statusCode = 200
+				res.write('Participant revoked')
+				res.end()
+			}
+		})
+	})
+})
+
 module.exports = router

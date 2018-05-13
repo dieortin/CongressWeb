@@ -73,6 +73,6 @@ function unapproveParticipant(id) {
 		}
 	}
 
-	req.open('POST', 'manageParticipants/unapprove/' + id)
+	req.open('POST', 'participantApproval/revoke/' + id)
 	req.send()
 }
