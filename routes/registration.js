@@ -4,6 +4,7 @@ const debugRegistration = require('debug')('congressweb:registration')
 require('dotenv').config()
 const request = require('request')
 const querystring = require('querystring')
+const nodemailer = require('nodemailer')
 
 const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
@@ -97,13 +98,20 @@ router.post('/', function(req, res, next) {
 
 	newParticipant.save((err /*, newUser*/ ) => {
 		if (err) {
-			return console.error(err)
+			debugRegistration('New participant registration failed!')
+			debugRegistration(err)
+			req.app.locals.renderingOptions.title = 'Error!'
+			req.app.locals.renderingOptions.success = false
+			res.render('registration-result', req.app.locals.renderingOptions)
+		} else {
+			debugRegistration(`New Participant registered: ${req.body.firstName} ${req.body.familyName}`)
+			req.app.locals.renderingOptions.title = 'Success!'
+			req.app.locals.renderingOptions.success = true
+			res.render('registration-result', req.app.locals.renderingOptions)
 		}
-		debugRegistration(`New Participant registered: ${req.body.firstName} ${req.body.familyName}`)
 	})
 
-	req.app.locals.renderingOptions.title = 'Success!'
-	res.render('registration-success', req.app.locals.renderingOptions)
+	
 })
 
 function isAuthenticated(req, res, next) {
