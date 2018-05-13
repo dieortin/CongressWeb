@@ -234,13 +234,21 @@ form.registration > fieldset > legend {
 	padding: 3px 6px;
 }
 
-form.registration > fieldset > div {
+form.registration > fieldset div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-form.registration > fieldset > div > * {
+form.registration > fieldset div.extraFields {
+	display: block;
+}
+
+form.registration > fieldset div.hidden {
+	display: none;
+}
+
+form.registration > fieldset div > * {
 	margin: 0;
 }
 
@@ -248,20 +256,20 @@ form input, form label {
 	margin: 5px auto;
 }
 
-form.registration > fieldset > div > input, form.registration > fieldset > div > select, 
-form.registration > fieldset > div > textarea {
+form.registration > fieldset > div input, form.registration > fieldset > div select, 
+form.registration > fieldset div textarea {
 	width: 75%;
 	margin-right: 20px;
 }
 
-form.registration > fieldset > div > label {
+form.registration > fieldset > div label {
 	width: 25%;
 	min-width: 130px;
 	text-align: right;
 	margin-right: 5px;
 }
 
-form.registration > fieldset > div > input.withValidity {
+form.registration > fieldset > div input.withValidity {
 	margin-right: 0;
 }
 

@@ -1,9 +1,25 @@
-function toggleDropdownVisibility() {
-	const element = document.getElementsByTagName('nav')[0]
-	if (element.classList.contains('hidden')) {
-		element.classList.remove('hidden')
+function setExtraFieldsVisibility() {
+	const checkbox = document.getElementById('toggleFields')
+	const fields = document.getElementById('extraFields')
+	if (checkbox.checked) {
+		fields.classList.remove('hidden')
+		return 'Showing'
 	} else {
-		element.classList.add('hidden')
+		fields.classList.add('hidden')
+		return 'Hiding'
+	}
+}
+
+
+function toggleDropdownVisibility() {
+	toggleElementVisibility(document.getElementsByTagName('nav')[0])
+}
+
+function toggleElementVisibility(el) {
+	if (el.classList.contains('hidden')) {
+		el.classList.remove('hidden')
+	} else {
+		el.classList.add('hidden')
 	}
 }
 

@@ -52,20 +52,22 @@ block content
 		fieldset
 			legend Talk
 			div
-				label Do you want to submit an abstract?
-				input(type='checkbox' name='talkExists')
-			div
-				label Title:
-				input(type='text' name='talkTitle')
-			div
-				label Abstract:
-				textarea(rows='10' name='talkAbstract')
-			div
-				label Duration (in minutes):
-				input(type='number' name='talkDuration')
-			div
-				label Additional information:
-				textarea(name='talkAdditionalInfo')
+				label Check the box if you want to submit an abstract
+				input#toggleFields(type='checkbox' name='talkExists' onclick='setExtraFieldsVisibility()')
+
+			#extraFields.extraFields.hidden
+				div
+					label Title:
+					input(type='text' name='talkTitle')
+				div
+					label Abstract:
+					textarea(rows='10' name='talkAbstract')
+				div
+					label Duration (in minutes):
+					input(type='number' name='talkDuration')
+				div
+					label Additional information:
+					textarea(name='talkAdditionalInfo')
 		div.submitArea
 			input(required type='submit' value='Sign Up')
 			div.g-recaptcha(data-sitekey='6LfdlE4UAAAAAMihscIOb-jyf80G0uVNiDjuvXi4')
