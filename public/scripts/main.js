@@ -37,7 +37,7 @@ function approveParticipant(id) {
 		}
 	}
 
-	req.open('POST', 'manageParticipants/approve/' + id)
+	req.open('POST', 'participantApproval/approve/' + id)
 	req.send()
 }
 
@@ -55,6 +55,6 @@ function rejectParticipant(id) {
 		}
 	}
 
-	req.open('POST', 'manageParticipants/reject/' + id)
+	req.open('POST', 'participantApproval/reject/' + id)
 	req.send()
 }

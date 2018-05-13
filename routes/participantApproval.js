@@ -1,7 +1,7 @@
 const express = require('express')
 //const bcrypt = require('bcrypt')
 const router = express.Router()
-const debugParticipants = require('debug')('congressweb:manageParticipants')
+const debugParticipants = require('debug')('congressweb:participantApproval')
 require('dotenv').config()
 
 const Participant = require('../models/Participant')
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 
 			req.app.locals.renderingOptions.participants.push(p)
 		}
-		res.render('manageParticipants', req.app.locals.renderingOptions)
+		res.render('participantApproval', req.app.locals.renderingOptions)
 	})
 })
 
