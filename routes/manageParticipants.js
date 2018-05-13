@@ -9,12 +9,12 @@ const Participant = require('../models/Participant')
 router.get('/', (req, res) => {
 	req.app.locals.renderingOptions.title = 'Approval'
 	Participant.find({
-		'approved': false
+		'approved': true
 	}).sort({
 		'personalData.firstName': 'asc'
 	}).find((err, participants) => {
 		if (err) {
-			debugParticipants('Error while searching for unapproved participants')
+			debugParticipants('Error while searching for approved participants')
 		}
 		req.app.locals.renderingOptions.participants = []
 		for (var i = 0; i < participants.length; i++) {
@@ -36,17 +36,17 @@ router.get('/', (req, res) => {
 
 			req.app.locals.renderingOptions.participants.push(p)
 		}
-		res.render('participantApproval', req.app.locals.renderingOptions)
+		res.render('manageParticipants', req.app.locals.renderingOptions)
 	})
 })
 
-router.post('/approve/:id', (req, res) => {
-	debugParticipants(`Approving participant with id ${req.params.id}`)
+router.post('/unapprove/:id', (req, res) => {
+	debugParticipants(`Unapproving participant with id ${req.params.id}`)
 	Participant.findById(req.params.id, (err, participant) => {
 		if (err) {
 			debugParticipants(`Error while searching for participant ${req.params.id}`)
 		}
-		participant.approved = true
+		participant.approved = false
 		participant.save((err) => {
 			if (err) {
 				debugParticipants(`Error while saving updated participant ${req.params.id}`)
@@ -58,21 +58,6 @@ router.post('/approve/:id', (req, res) => {
 				res.end()
 			}
 		})
-	})
-})
-
-router.post('/reject/:id', (req, res) => {
-	debugParticipants(`Rejecting participant with id ${req.params.id}`)
-	Participant.findByIdAndRemove(req.params.id, (err) => {
-		if (err) {
-			debugParticipants(`Error while searching for participant ${req.params.id}`)
-			res.statusCode = 500
-			res.end()
-		} else {
-			res.statusCode = 200
-			res.write('Participant rejected')
-			res.end()
-		}
 	})
 })
 

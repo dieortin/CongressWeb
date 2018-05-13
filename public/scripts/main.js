@@ -58,3 +58,21 @@ function rejectParticipant(id) {
 	req.open('POST', 'participantApproval/reject/' + id)
 	req.send()
 }
+
+function unapproveParticipant(id) {
+	const req = new XMLHttpRequest()
+	req.addEventListener('load', () => {
+		console.log('Rejection request sent')
+	})
+
+	req.onreadystatechange = () => {
+		if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+			console.log('Correct unapproval, removing participant from list')
+			const element = document.getElementById(id)
+			element.parentNode.removeChild(element)
+		}
+	}
+
+	req.open('POST', 'manageParticipants/unapprove/' + id)
+	req.send()
+}
