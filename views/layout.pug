@@ -1,9 +1,3 @@
-- 
-	var sectionTabs = [
-		{name: 'Participants', url: 'participants'},
-		{name: 'Schedule', url: 'schedule'},
-		{name: 'Practical information', url: 'practicalInfo'}]
-
 doctype html
 html
 	head
@@ -13,11 +7,12 @@ html
 		link(href='https://fonts.googleapis.com/css?family=Montserrat|Scope+One|Trocchi' rel='stylesheet')
 		link(rel='stylesheet', href='stylesheets/style.css')
 		block extraHead
+		meta(charset='utf-8')
 	body
 		if headerImage
 			div.bg-image
 		header
-			h1 
+			h1
 				a(href='index') EREP'18
 			div.header-controls
 				#navicon(onclick='toggleDropdownVisibility()') ☰
@@ -26,11 +21,10 @@ html
 						if user
 							li
 								a(href='admin') Administration
-						li
-							a(href='index') Homepage
-						each tab in sectionTabs
-							li
-								a(href=tab.url) #{tab.name}
+						li: a(href='index') Homepage
+						li: a(href='participants') Participants
+						li: a.disabled(href='schedule') Schedule
+						li: a(href='practicalInfo') Practical information
 					if user
 						div.current-session
 							span Logged in as 
@@ -53,6 +47,7 @@ html
 				-	
 					var sponsorsData = [{name: 'ift', url: 'https://www.ift.uam-csic.es/'},
 						{name: 'severoochoa', url: 'https://www.ift.uam-csic.es/severoochoa/en/introduction/'},
+						{name: 'rtrg', url: 'https://www.facebook.com/RedTRG/'},
 						{name: 'fecyt', url: 'https://www.fecyt.es'},
 						{name: 'segre', url: 'http://www.mineco.gob.es/'},
 						{name: 'mineco', url: 'http://www.mineco.gob.es/'},
