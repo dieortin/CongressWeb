@@ -8,11 +8,9 @@ html
 				li Full name: #{participant.personalData.title} #{participant.personalData.firstName} #{participant.personalData.familyName}
 				li Email address: #{participant.personalData.email}
 				li Phone number: #{participant.personalData.phoneNumber}
-			br
 		div
 			h2 Affiliation
 			p #{participant.affiliation.name}, with address #{participant.affiliation.address}
-			br
 		div
 			h2 Dates
 			p Arrival on #{participant.dateOf.arrival}		
@@ -22,9 +20,11 @@ html
 				h2 Talk data
 				ul
 					li Abstract title: #{participant.talk.title}
-					li: b  Text:
+					li
+						b  Text:
 						p #{participant.talk.abstract}
-					li: b Additional information:
+					li
+						b Additional information:
 						p #{participant.talk.additionalInfo}
 		if participant.grant.doesApply
 			div
@@ -32,5 +32,4 @@ html
 				p #{participant.grant.explanation}
 		div
 			h2 Additional information
-			b This participant made the following comments:
 			p #{participant.additionalInfo}

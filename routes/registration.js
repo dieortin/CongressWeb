@@ -116,12 +116,12 @@ router.post('/', function(req, res, next) {
 
 			var mailSubject = '[REGISTRATION'
 			if (newParticipant.talk.exists) {
-				mailSubject.append('+TALK')
+				mailSubject += '+TALK'
 			}
 			if (newParticipant.grant.doesApply) {
-				mailSubject.append('+GRANT')
+				mailSubject += '+GRANT'
 			}
-			mailSubject.append(']')
+			mailSubject += ']'
 			mailOptions.subject = mailSubject
 
 			mailer.send(mailOptions)
