@@ -106,7 +106,7 @@ router.post('/', function(req, res, next) {
 
 function isAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
-		res.redirect(APP_MOUNT_DIR + 'admin')
+		res.redirect(APP_MOUNT_DIR + '/admin')
 	} else {
 		next()
 	}
