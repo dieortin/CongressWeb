@@ -14,6 +14,7 @@ router.get('/grant/:id', (req, res) => {
 			return
 		}
 		debugTextView(`Showing grant explanation ${req.params.id}`)
+		res.app.locals.renderingOptions.textTitle = 'grant explanation'
 		res.app.locals.renderingOptions.name = participant.personalData.firstName
 		res.app.locals.renderingOptions.text = participant.grant.explanation
 		res.render('textview', res.app.locals.renderingOptions)
@@ -30,6 +31,7 @@ router.get('/additionalInfo/:id', (req, res) => {
 			return
 		}
 		debugTextView(`Showing additional information ${req.params.id}`)
+		res.app.locals.renderingOptions.textTitle = 'additional information'
 		res.app.locals.renderingOptions.name = participant.personalData.firstName
 		res.app.locals.renderingOptions.text = participant.additionalInfo
 		res.render('textview', res.app.locals.renderingOptions)
