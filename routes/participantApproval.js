@@ -33,6 +33,7 @@ router.get('/', (req, res) => {
 			p.departure = departure.toDateString()
 			p.hasTalk = participants[i].talk.exists
 			p.talkTitle = participants[i].talk.title
+			p.appliesGrant = participants[i].grant.doesApply
 
 			req.app.locals.renderingOptions.participants.push(p)
 		}
