@@ -107,12 +107,22 @@ router.post('/', function(req, res, next) {
 			let mailOptions = {
 				from: '"EREP\'18 Registration"  <registration@erep2018.com>', // sender address
 				to: destinataries, // list of receivers
-				subject: 'New registration ✔', // Subject line
+				//subject: 'New registration ✔', // Subject line
 				template: 'newRegistration',
 				data: {
 					participant: newParticipant
 				}
 			}
+
+			var mailSubject = '[REGISTRATION'
+			if (newParticipant.talk.exists) {
+				mailSubject.append('+TALK')
+			}
+			if (newParticipant.grant.doesApply) {
+				mailSubject.append('+GRANT')
+			}
+			mailSubject.append(']')
+			mailOptions.subject = mailSubject
 
 			mailer.send(mailOptions)
 				.then(response => debugRegistration('Email sent!'))
