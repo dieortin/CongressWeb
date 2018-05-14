@@ -60,12 +60,16 @@ const participantSchema = mongoose.Schema({
 		duration: Number,
 		additionalInfo: String
 	},
-	scholarship: {
+	grant: {
 		doesApply: {
 			type: Boolean,
 			required: true,
 			default: false
 		},
+		explanation: {
+			type: String,
+			required: false
+		}
 
 	},
 	additionalInfo: {

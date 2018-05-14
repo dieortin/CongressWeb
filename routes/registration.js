@@ -74,7 +74,11 @@ router.post('/', function(req, res, next) {
 				duration: req.body.talkDuration,
 				additionalInfo: req.body.talkAdditionalInfo
 			},
-			additionalInfo: req.body.additionalInfo
+			additionalInfo: req.body.additionalInfo,
+			grant: {
+				doesApply: req.body.grantApplies,
+				explanation: req.body.grantExplanation
+			}
 		})
 	} else {
 		newParticipant = new Participant({
@@ -92,7 +96,11 @@ router.post('/', function(req, res, next) {
 				arrival: req.body.arrivalDate,
 				departure: req.body.departureDate
 			},
-			additionalInfo: req.body.additionalInfo
+			additionalInfo: req.body.additionalInfo,
+			grant: {
+				doesApply: req.body.grantApplies,
+				explanation: req.body.grantExplanation
+			}
 		})
 	}
 
