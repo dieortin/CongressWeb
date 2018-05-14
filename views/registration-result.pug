@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	if success
+		div.centered
+			h1 Thanks for your registration!
+			h3 You will receive an email as soon as you get approved
+			h4: a(href='index') Go back to the homepage
+	else
+		div.centered
+			h1(style='color:red') Something didn't go as expected!
+			h3 Please make sure you put correct values in all the fields
+			h4: a(href='javascript:history.back()') Go back to registration

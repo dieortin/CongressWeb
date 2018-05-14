@@ -27,6 +27,11 @@ h2 {
 	font-size: 1.5em;
 }
 
+.centered {
+	text-align: center;
+	align-self: center;
+}
+
 .bold {
 	font-weight: bold;
 }
@@ -209,33 +214,41 @@ div.homepage-participants ul li {
 	margin-bottom: 4px;
 }
 
-form.signup {
+form.registration {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	align-items: center;
 }
 
-form.signup > fieldset {
+form.registration > fieldset {
 	border: 1px solid #000;
 	padding: 15px;
 	margin: 10px auto;
 	width: 50%;
 }
 
-form.signup > fieldset > legend {
+form.registration > fieldset > legend {
 	background-color: #444;
 	color: #fff;
 	padding: 3px 6px;
 }
 
-form.signup > fieldset > div {
+form.registration > fieldset div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-form.signup > fieldset > div > * {
+form.registration > fieldset div.extraFields {
+	display: block;
+}
+
+form.registration > fieldset div.hidden {
+	display: none;
+}
+
+form.registration > fieldset div > * {
 	margin: 0;
 }
 
@@ -243,19 +256,20 @@ form input, form label {
 	margin: 5px auto;
 }
 
-form.signup > fieldset > div > input, form.signup > fieldset > div > select{
+form.registration > fieldset > div input, form.registration > fieldset > div select, 
+form.registration > fieldset div textarea {
 	width: 75%;
 	margin-right: 20px;
 }
 
-form.signup > fieldset > div > label {
+form.registration > fieldset > div label {
 	width: 25%;
 	min-width: 130px;
 	text-align: right;
 	margin-right: 5px;
 }
 
-form.signup > fieldset > div > input.withValidity {
+form.registration > fieldset > div input.withValidity {
 	margin-right: 0;
 }
 
@@ -275,14 +289,14 @@ input:valid+span:after {
 	color: #009000;
 }
 
-form.signup div.submitArea {
+form .submitArea {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: calc(50% + 34px);
 }
 
-form.signup div.submitArea > * {
+form .submitArea > * {
 	margin: auto 5px;
 }
 
@@ -295,6 +309,56 @@ input[type='submit'] {
 	border-radius: 3px;
 	border: double 3px #fff;
 	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+	color: #fff;
+	background-color: #333;
+}
+
+table, table th, table td {
+	border: solid thin black;
+}
+
+table .managementButtons {
+	min-width: 150px;
+}
+
+button {
+	cursor: pointer;
+	border-style: solid;
+}
+
+button.approve {
+	background-color: #008000;
+	border-color: #005000;
+	border-radius: 5px 0 0 5px;
+}
+
+button.approve:hover {
+	background-color: #00b000;
+}
+
+button.approve:active {
+	background-color: #005000;
+}
+
+button.reject {
+	background-color: #ff0000;
+	border-color: #bb0000;
+	border-radius: 0 5px 5px 0;
+}
+
+button.reject:hover {
+	background-color: #ff5555;
+}
+
+button.reject:active {
+	background-color: #bb0000;
 }
 
 section.main, footer {
@@ -402,6 +466,19 @@ footer .sponsors-grid img {
 	}
 	#navicon {
 		display: block;
+	}
+	form.registration, form.registration > fieldset {
+		width: 100%;
+		box-sizing: border-box;
+	}
+	form .submitArea {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		align-content: center;
+	}
+	input[type='submit'] {
+		border-radius: 30px;
 	}
 }
 

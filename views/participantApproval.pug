@@ -1,0 +1,48 @@
+extends layout
+
+block content
+	div.centered
+		h2 Pending participants:
+		if participants.length > 0
+			table
+				thead
+					tr
+						th Full name
+						th Email
+						th Phone #
+						th Affiliation
+						th Aff. address
+						th Arrival
+						th Departure
+						th Abstract?
+						th Grant?
+						th Info
+						th.managementButtons
+				tbody
+					each p in participants
+						tr(id=p.id)
+							td #{p.fullName}
+							td #{p.email}
+							td #{p.phoneNumber}
+							td #{p.affName}
+							td #{p.affAddress}
+							td #{p.arrival}
+							td #{p.departure}
+							if p.hasTalk
+								td: a(href=`abstract/${p.id}`) #{p.talkTitle}
+							else
+								td No
+							if p.appliesGrant
+								td: a(href=`textview/grant/${p.id}`) Yes
+							else
+								td No
+							if p.additionalInfo
+								td: a(href=`textview/additionalInfo/${p.id}`) Yes
+							else
+								td No
+							td
+								button.approve(onclick=`approveParticipant('${p.id}')`) Approve
+								button.reject(onclick=`rejectParticipant('${p.id}')`) Reject
+		else
+			div.centered
+				h1 There are no unapproved requests right now!

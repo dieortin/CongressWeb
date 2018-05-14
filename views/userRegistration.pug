@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	h1 User Registration
+	if (error)
+		div.error= error
+	form.registration(action='userRegistration' method='post')
+		fieldset
+			div
+				label Username:
+				input(type='text' name='username')
+			div
+				label Password:
+				input(type='password' name='password')
+		div.submitArea
+			input(required type='submit' value='Sign Up')

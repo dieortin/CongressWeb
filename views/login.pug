@@ -1,14 +1,10 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	div
-		p #{title} is a webpage for managing the speakers in a congress and viewing its information
 	h2 Login
 	if (error && error != '')
 		span.error= error
-	form(action='/auth' method='post')
+	form(action='auth' method='post')
 		div
 			label Username:
 			input(type='text' name='username')
@@ -17,4 +13,3 @@ block content
 			input(type='password' name='password')
 		div
 			input(type='submit' value='Log In')
-	a(href='/signup') Sign up

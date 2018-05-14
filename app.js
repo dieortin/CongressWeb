@@ -21,21 +21,26 @@ const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 /////////////////////////////////////////////////////////
 /////////// HELPERS /////////////////////////////////////
 const database = require('./helpers/database')
+const setupMailer = require('./helpers/setupMailer.js')
 const auth = require('./helpers/auth')
 const addRenderingData = require('./helpers/addRenderingData')
+const checkAuth = require('./helpers/checkAuth')
 /////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////
-/////////// ROUTES //////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+/////////// ROUTES /////////////////////////////////////////////////
+const index = require('./routes/index')
+const users = require('./routes/users')
+const login = require('./routes/login')
+const registration = require('./routes/registration')
+const participants = require('./routes/participants')
+const participantApproval = require ('./routes/participantApproval')
+const admin = require('./routes/admin')
+const userRegistration = require('./routes/userRegistration')
+const abstract = require('./routes/abstract')
+const textview = require('./routes/textview')
 const practicalInfo = require('./routes/practicalInfo')
-const index = require('./routes/index') 			/////
-const users = require('./routes/users') 			/////
-const login = require('./routes/login') 			/////
-const signup = require('./routes/signup') 			/////
-const restricted = require('./routes/restricted')	/////
-/////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////
 /////////// BASIC EXPRESS SETUP /////////////////////////
@@ -58,8 +63,10 @@ app.use(flash())
 
 /// Using helmet to help secure the server
 app.use(helmet())
-//app.use(redirectToHTTPS()) TODO: Get this working
 //////////////////////////////////////////////////////////
+
+setupMailer()
+///////////////////////////////////////////////////////////
 
 database.connect()
 	.then(setupPassport)
@@ -130,8 +137,13 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/index', index)
 		app.use(APP_MOUNT_DIR + '/users', users)
 		app.use(APP_MOUNT_DIR + '/login', login)
-		app.use(APP_MOUNT_DIR + '/signup', signup)
-		app.use(APP_MOUNT_DIR + '/restricted', restricted)
+		app.use(APP_MOUNT_DIR + '/registration', registration)
+		app.use(APP_MOUNT_DIR + '/participants', participants)
+		app.use(APP_MOUNT_DIR + '/participantApproval', checkAuth, participantApproval)
+		app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
+		app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
+		app.use(APP_MOUNT_DIR + '/abstract', abstract)
+		app.use(APP_MOUNT_DIR + '/textview', textview)
 		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
 		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
@@ -140,7 +152,7 @@ function setupPaths() {
 		})
 
 		app.post(APP_MOUNT_DIR + '/auth', passport.authenticate('local', {
-			successRedirect: APP_MOUNT_DIR + '/restricted',
+			successRedirect: APP_MOUNT_DIR + '/admin',
 			failureRedirect: APP_MOUNT_DIR + '/login',
 			failureFlash: true
 		}))
@@ -159,6 +171,7 @@ function setupPaths() {
 		app.use(function(err, req, res) {
 			// set locals, only providing error in development
 			res.locals.message = err.message
+			debugApp('Current env is: ' + req.app.get('env'))
 			res.locals.error = req.app.get('env') === 'development' ? err : {}
 
 			// render the error page

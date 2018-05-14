@@ -14,7 +14,7 @@ function addRenderingData(req, res, next) {
 
 	// Add user data to the renderingOptions if the user is logged in
 	if (req.isAuthenticated()) {
-		req.app.locals.renderingOptions.user = req.user.personalData
+		req.app.locals.renderingOptions.user = req.user.username
 	}
 	next()
 }

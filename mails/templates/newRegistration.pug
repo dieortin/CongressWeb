@@ -1,0 +1,18 @@
+doctype html
+html
+	body
+		h1 New registration!
+		h2 Personal data:
+		ul
+			li Full name: #{participant.personalData.title} #{participant.personalData.firstName} #{participant.personalData.familyName}
+			li Phone number: #{participant.personalData.phoneNumber}
+		br
+		h2 Affiliation
+		p #{participant.affiliation.name}, with address #{participant.affiliation.address}
+		br
+		h2 Dates
+		p Arrival on #{participant.dateOf.arrival}		
+		p Departure on #{participant.dateOf.departure}
+		h2 Additional information
+		b This participant made the following comments:
+		p #{participant.additionalInfo}

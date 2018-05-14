@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	h2 Current participants:
+	if participants.length > 0
+		table
+			thead
+				tr
+					th Full name
+					th Affiliation
+					if user
+						th
+			tbody
+				each p in participants
+					tr(id=p.id)
+						td #{p.personalData.title} #{p.personalData.firstName} #{p.personalData.familyName}
+						td #{p.affiliation.name}
+						if user
+							td
+								button.reject(onclick=`unapproveParticipant('${p.id}')`) Revoke
+	else
+		div.centered
+			h1 There are no participants yet!

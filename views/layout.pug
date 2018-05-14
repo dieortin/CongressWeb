@@ -8,32 +8,42 @@ html
 		link(rel='stylesheet', href='stylesheets/style.css')
 		block extraHead
 		meta(charset='utf-8')
+		script(async='true' src='https://www.googletagmanager.com/gtag/js?id=UA-119195992-1').
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-119195992-1');
+</script>
+
 	body
 		if headerImage
 			div.bg-image
 		header
-			h1 
+			h1
 				a(href='index') EREP'18
 			div.header-controls
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
+						if user
+							li
+								a(href='admin') Administration
 						li: a(href='index') Homepage
-						li: a.disabled(href='participants') Participants
+						li: a(href='participants') Participants
 						li: a.disabled(href='schedule') Schedule
 						li: a(href='practicalInfo') Practical information
 					if user
 						div.current-session
 							span Logged in as 
-								span.bold= user.firstName
+								span.bold= user
 							a.logout(href='logout') Sign out
 					else
 						div.current-session
 							if registrationEnabled
-								a.registration(href='signup') Registration
+								a.registration(href='registration') Registration
 							else
 								div.disabled
-									a.registration.disabled(href='signup') Registration
+									a.registration.disabled(href='registration') Registration
 		- const sectionMarginClass = headerImage ? 'image-margin' : 'no-image-margin'
 				
 		section.main(class=sectionMarginClass)
@@ -57,4 +67,3 @@ html
 					a(href=sponsor.url)
 						img(src='images/'+ sponsor.name + '-logo.png')
 		script(src='scripts/main.js')
-

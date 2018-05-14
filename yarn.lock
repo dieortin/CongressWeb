@@ -1571,6 +1571,10 @@ node-pre-gyp@0.9.1:
     semver "^5.3.0"
     tar "^4"
 
+nodemailer@^4.0.1, nodemailer@^4.6.4:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.6.4.tgz#f0d72d0c6a6ec5f4369fa8f4bf5127a31baa2014"
+
 nopt@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-4.0.1.tgz#d0d4685afd5415193c8c7505602d0d17cd64474d"
@@ -1896,6 +1900,13 @@ pug-load@^2.0.11:
     object-assign "^4.1.0"
     pug-walk "^1.1.7"
 
+pug-mailer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/pug-mailer/-/pug-mailer-1.0.1.tgz#65312ab62f4f7d53cd2bdc720eb19011dd90d05e"
+  dependencies:
+    nodemailer "^4.0.1"
+    pug "^2.0.0-rc.1"
+
 pug-parser@^4.0.0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/pug-parser/-/pug-parser-4.0.2.tgz#7b2e3311b75821486706479477ab1d34f5f817df"
@@ -1930,7 +1941,7 @@ pug-walk@^1.1.0, pug-walk@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/pug-walk/-/pug-walk-1.1.7.tgz#c00d5c5128bac5806bec15d2b7e7cdabe42531f3"
 
-pug@^2.0.0-rc.4:
+pug@^2.0.0-rc.1, pug@^2.0.0-rc.4:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/pug/-/pug-2.0.3.tgz#71cba82537c95a5eab7ed04696e4221f53aa878e"
   dependencies:
