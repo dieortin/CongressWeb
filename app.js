@@ -141,7 +141,8 @@ function setupPaths() {
 		app.use(APP_MOUNT_DIR + '/participants', participants)
 		app.use(APP_MOUNT_DIR + '/participantApproval', checkAuth, participantApproval)
 		app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
-		app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
+		// Uncomment to enable admin registration!!!
+		//app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
 		app.use(APP_MOUNT_DIR + '/abstract', abstract)
 		app.use(APP_MOUNT_DIR + '/textview', textview)
 		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
