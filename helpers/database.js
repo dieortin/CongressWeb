@@ -13,7 +13,7 @@ const dbCredString = dbopt.user + ':' + dbopt.pass
 const dbHostString = dbopt.host + ':' + dbopt.port + '/' + dbopt.path
 const dbCompletePath =  dbCredString + '@' + dbHostString
 
-var db = null
+let db = null
 
 exports.connect = function() {
 	debugDb('Connecting to database on ' + dbHostString)

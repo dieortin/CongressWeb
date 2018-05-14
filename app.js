@@ -21,6 +21,7 @@ const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 /////////////////////////////////////////////////////////
 /////////// HELPERS /////////////////////////////////////
 const database = require('./helpers/database')
+const nmailer = require('./helpers/setupNodemailer.js')
 const auth = require('./helpers/auth')
 const addRenderingData = require('./helpers/addRenderingData')
 const checkAuth = require('./helpers/checkAuth')
@@ -63,6 +64,9 @@ app.use(flash())
 /// Using helmet to help secure the server
 app.use(helmet())
 //////////////////////////////////////////////////////////
+
+nmailer.setup()
+///////////////////////////////////////////////////////////
 
 database.connect()
 	.then(setupPassport)

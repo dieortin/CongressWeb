@@ -98,6 +98,28 @@ router.post('/', function(req, res, next) {
 			req.app.locals.renderingOptions.title = 'Success!'
 			req.app.locals.renderingOptions.success = true
 			res.render('registration-result', req.app.locals.renderingOptions)
+
+			// setup email data with unicode symbols
+			let mailOptions = {
+				from: '"EREP\'18 Registration 👻" <registration@erep2018.com>', // sender address
+				to: 'dieortin@gmail.com', // list of receivers
+				subject: 'New registration ✔', // Subject line
+				text: 'Hello world?', // plain text body
+				html: `<h1>New participant registered</h1>
+							<div>New participant: ${newParticipant}</div>` // html body
+			}
+
+			require('../helpers/setupNodemailer').transporter().sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return debugRegistration(error)
+				}
+				debugRegistration('Message sent: %s', info.messageId)
+				// Preview only available when sending through an Ethereal account
+				debugRegistration('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+
+				// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+				// Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+			})
 		}
 	})
 
