@@ -50,59 +50,41 @@ router.post('/', function(req, res, next) {
 	debugRegistration(`New Participant registration attempt: ${req.body.firstName} ${req.body.familyName}`)
 
 	var newParticipant
+	var participantObj = {
+		personalData: {
+			title: req.body.title,
+			firstName: req.body.firstName,
+			familyName: req.body.familyName,
+			phoneNumber: req.body.phoneNumber
+		},
+		affiliation: {
+			name: req.body.affiliationName,
+			address: req.body.affiliationAddress
+		},
+		dateOf: {
+			arrival: req.body.arrivalDate,
+			departure: req.body.departureDate
+		},
+		additionalInfo: req.body.additionalInfo
+	}
 
 	if (req.body.talkExists == 'on') {
-		newParticipant = new Participant({
-			personalData: {
-				title: req.body.title,
-				firstName: req.body.firstName,
-				familyName: req.body.familyName,
-				phoneNumber: req.body.phoneNumber
-			},
-			affiliation: {
-				name: req.body.affiliationName,
-				address: req.body.affiliationAddress
-			},
-			dateOf: {
-				arrival: req.body.arrivalDate,
-				departure: req.body.departureDate
-			},
-			talk: {
-				exists: true,
-				title: req.body.talkTitle,
-				abstract: req.body.talkAbstract,
-				duration: req.body.talkDuration,
-				additionalInfo: req.body.talkAdditionalInfo
-			},
-			additionalInfo: req.body.additionalInfo,
-			grant: {
-				doesApply: req.body.grantApplies,
-				explanation: req.body.grantExplanation
-			}
-		})
-	} else {
-		newParticipant = new Participant({
-			personalData: {
-				title: req.body.title,
-				firstName: req.body.firstName,
-				familyName: req.body.familyName,
-				phoneNumber: req.body.phoneNumber
-			},
-			affiliation: {
-				name: req.body.affiliationName,
-				address: req.body.affiliationAddress
-			},
-			dateOf: {
-				arrival: req.body.arrivalDate,
-				departure: req.body.departureDate
-			},
-			additionalInfo: req.body.additionalInfo,
-			grant: {
-				doesApply: req.body.grantApplies,
-				explanation: req.body.grantExplanation
-			}
-		})
+		participantObj.talk = {
+			exists: true,
+			title: req.body.talkTitle,
+			abstract: req.body.talkAbstract,
+			duration: req.body.talkDuration,
+			additionalInfo: req.body.talkAdditionalInfo
+		}
 	}
+	if (req.body.grantApplies == 'on') {
+		participantObj.grant = {
+			doesApply: true,
+			explanation: req.body.grantExplanation
+		}
+	}
+
+	newParticipant = new Participant(participantObj)
 
 	newParticipant.save((err /*, newUser*/ ) => {
 		if (err) {
@@ -119,7 +101,7 @@ router.post('/', function(req, res, next) {
 		}
 	})
 
-	
+
 })
 
 function isAuthenticated(req, res, next) {
