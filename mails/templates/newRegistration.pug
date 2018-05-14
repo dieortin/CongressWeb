@@ -2,17 +2,35 @@ doctype html
 html
 	body
 		h1 New registration!
-		h2 Personal data:
-		ul
-			li Full name: #{participant.personalData.title} #{participant.personalData.firstName} #{participant.personalData.familyName}
-			li Phone number: #{participant.personalData.phoneNumber}
-		br
-		h2 Affiliation
-		p #{participant.affiliation.name}, with address #{participant.affiliation.address}
-		br
-		h2 Dates
-		p Arrival on #{participant.dateOf.arrival}		
-		p Departure on #{participant.dateOf.departure}
-		h2 Additional information
-		b This participant made the following comments:
-		p #{participant.additionalInfo}
+		div
+			h2 Personal data:
+			ul
+				li Full name: #{participant.personalData.title} #{participant.personalData.firstName} #{participant.personalData.familyName}
+				li Email address: #{participant.personalData.email}
+				li Phone number: #{participant.personalData.phoneNumber}
+			br
+		div
+			h2 Affiliation
+			p #{participant.affiliation.name}, with address #{participant.affiliation.address}
+			br
+		div
+			h2 Dates
+			p Arrival on #{participant.dateOf.arrival}		
+			p Departure on #{participant.dateOf.departure}
+		if participant.talk.exists
+			div
+				h2 Talk data
+				ul
+					li Abstract title: #{participant.talk.title}
+					li: b  Text:
+						p #{participant.talk.abstract}
+					li: b Additional information:
+						p #{participant.talk.additionalInfo}
+		if participant.grant.doesApply
+			div
+				h2 Grant request
+				p #{participant.grant.explanation}
+		div
+			h2 Additional information
+			b This participant made the following comments:
+			p #{participant.additionalInfo}
