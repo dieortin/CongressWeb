@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {
 		}
 	})
 }, function(req, res) {
-	//console.log("Request body: %j", req.body)
+	//console.log('Request body: %j', req.body)
 
 	debugRegistration(`New Participant registration attempt: ${req.body.firstName} ${req.body.familyName}`)
 
@@ -99,14 +99,19 @@ router.post('/', function(req, res, next) {
 			req.app.locals.renderingOptions.success = true
 			res.render('registration-result', req.app.locals.renderingOptions)
 
+			const destinataries = process.env.MAIL_DESTINATARIES
+			if (destinataries == null) {
+				return new Error('Mail destinataries not set!')
+			}
 			// setup email data with unicode symbols
 			let mailOptions = {
-				from: '"EREP\'18 Registration 👻" <registration@erep2018.com>', // sender address
+				from: '"EREP\'18 Registration"  <registration@erep2018.com>', // sender address
 				to: 'dieortin@gmail.com', // list of receivers
 				subject: 'New registration ✔', // Subject line
 				text: 'Hello world?', // plain text body
 				html: `<h1>New participant registered</h1>
-							<div>New participant: ${newParticipant}</div>` // html body
+						<div>New participant: ${newParticipant.personalData.firstName}</div>
+						<h3>New data to be added to the emails soon</h3>` // html body
 			}
 
 			require('../helpers/setupNodemailer').transporter().sendMail(mailOptions, (error, info) => {
