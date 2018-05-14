@@ -74,7 +74,6 @@ router.post('/', function(req, res, next) {
 			exists: true,
 			title: req.body.talkTitle,
 			abstract: req.body.talkAbstract,
-			duration: req.body.talkDuration,
 			additionalInfo: req.body.talkAdditionalInfo
 		}
 	}

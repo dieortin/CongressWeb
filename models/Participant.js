@@ -61,7 +61,6 @@ const participantSchema = mongoose.Schema({
 			type: String,
 			required: false //TODO: should be required when talk exists
 		},
-		duration: Number,
 		additionalInfo: String
 	},
 	grant: {
