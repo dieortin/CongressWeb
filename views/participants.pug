@@ -7,17 +7,41 @@ block content
 			thead
 				tr
 					th Full name
+					if user
+						th Email
 					th Affiliation
 					if user
+						th Aff. address
+						th Arrival
+						th Departure
+						th Abstract?
+						th Grant?
+						th Info
 						th
 			tbody
 				each p in participants
 					tr(id=p.id)
 						td #{p.personalData.title} #{p.personalData.firstName} #{p.personalData.familyName}
+						if user
+							td #{p.personalData.email}
 						td #{p.affiliation.name}
 						if user
-							td
-								button.reject(onclick=`unapproveParticipant('${p.id}')`) Revoke
+							td #{p.affiliation.address}
+							td #{p.dateOf.arrival}
+							td #{p.dateOf.departure}
+							if p.talk.exists
+								td: a(href=`abstract/${p.id}`) #{p.talk.title}
+							else
+								td No
+							if p.grant.doesApply
+								td: a(href=`textview/grant/${p.id}`) Yes
+							else
+								td No
+							if p.additionalInfo
+								td: a(href=`textview/additionalInfo/${p.id}`) Yes
+							else
+								td No
+							td: button.reject(onclick=`unapproveParticipant('${p.id}')`) Revoke
 	else
 		div.centered
 			h1 There are no participants yet!
