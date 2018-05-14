@@ -386,6 +386,7 @@ footer .sponsors-grid a {
 
 footer .sponsors-grid img {
 	max-width: 100%;
+	margin: auto;
 }
 
 @media screen and (max-width: 600px), 
