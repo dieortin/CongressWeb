@@ -48,11 +48,13 @@ router.post('/approve/:id', (req, res) => {
 	Participant.findById(req.params.id, (err, participant) => {
 		if (err) {
 			debugParticipants(`Error while searching for participant ${req.params.id}`)
+			debugParticipants(err)
 		}
 		participant.approved = true
 		participant.save((err) => {
 			if (err) {
 				debugParticipants(`Error while saving updated participant ${req.params.id}`)
+				debugParticipants(err)
 				res.statusCode = 500
 				res.end()
 			} else {
@@ -69,6 +71,7 @@ router.post('/reject/:id', (req, res) => {
 	Participant.findByIdAndRemove(req.params.id, (err) => {
 		if (err) {
 			debugParticipants(`Error while searching for participant ${req.params.id}`)
+			debugParticipants(err)
 			res.statusCode = 500
 			res.end()
 		} else {
@@ -84,6 +87,7 @@ router.post('/revoke/:id', (req, res) => {
 	Participant.findById(req.params.id, (err, participant) => {
 		if (err) {
 			debugParticipants(`Error while searching for participant ${req.params.id}`)
+			debugParticipants(err)
 		}
 		participant.approved = false
 		participant.save((err) => {
