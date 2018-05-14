@@ -5,7 +5,7 @@ const debugViewAbstract = require('debug')('congressweb:viewAbstract')
 const Participant = require('../models/Participant')
 
 router.get('/:id', (req, res) => {
-	req.app.locals.renderingOptions.title = 'Approval'
+	req.app.locals.renderingOptions.title = 'Abstract'
 	Participant.findById(req.params.id, (err, participant) => {
 		if (err) {
 			debugViewAbstract(`Error while attempting to view abstract ${req.params.id}`)

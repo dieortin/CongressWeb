@@ -30,8 +30,7 @@ block content
 							else
 								td No
 							if p.appliesGrant
-								//- TODO: add the link for viewing the grant explanation
-								td: a(href) Yes
+								td: a(href=`grantview/${p.id}`) Yes
 							else
 								td No
 							td
