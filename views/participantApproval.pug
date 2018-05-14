@@ -14,6 +14,7 @@ block content
 						th Arrival
 						th Departure
 						th Abstract?
+						th Grant?
 						th
 				tbody
 					each p in participants
@@ -26,6 +27,11 @@ block content
 							td #{p.departure}
 							if p.hasTalk
 								td: a(href=`abstract/${p.id}`) #{p.talkTitle}
+							else
+								td No
+							if p.appliesGrant
+								//- TODO: add the link for viewing the grant explanation
+								td: a(href) Yes
 							else
 								td No
 							td
