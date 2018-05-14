@@ -289,14 +289,14 @@ input:valid+span:after {
 	color: #009000;
 }
 
-form.registration div.submitArea {
+form .submitArea {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: calc(50% + 34px);
 }
 
-form.registration div.submitArea > * {
+form .submitArea > * {
 	margin: auto 5px;
 }
 
@@ -462,6 +462,19 @@ footer .sponsors-grid img {
 	}
 	#navicon {
 		display: block;
+	}
+	form.registration, form.registration > fieldset {
+		width: 100%;
+		box-sizing: border-box;
+	}
+	form .submitArea {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		align-content: center;
+	}
+	input[type='submit'] {
+		border-radius: 30px;
 	}
 }
 
