@@ -1,8 +1,9 @@
 const express = require('express')
-//const bcrypt = require('bcrypt')
+	//const bcrypt = require('bcrypt')
 const router = express.Router()
 const debugParticipants = require('debug')('congressweb:participantApproval')
 require('dotenv').config()
+const mailer = require('pug-mailer')
 
 const Participant = require('../models/Participant')
 
@@ -61,6 +62,21 @@ router.post('/approve/:id', (req, res) => {
 				res.statusCode = 200
 				res.write('Participant approved')
 				res.end()
+
+				// Send a mail to the approved user telling him his registration is successful
+				let mailOptions = {
+					from: '"EREP\'18 Registration"  <registration@erep2018.com>', // sender address
+					to: participant.personalData.email, // list of receivers
+					subject: '[EREP\'18] Registration approved! ✔', // Subject line
+					template: 'approvedParticipant',
+					data: {
+						participant: participant
+					}
+				}
+
+				mailer.send(mailOptions)
+					.then(response => debugParticipants(`Email sent to ${mailOptions.to}!`))
+					.catch(err => debugParticipants('Error! ' + err))
 			}
 		})
 	})
