@@ -15,6 +15,7 @@ block content
 						th Departure
 						th Abstract?
 						th Grant?
+						th Info
 						th
 				tbody
 					each p in participants
@@ -30,7 +31,11 @@ block content
 							else
 								td No
 							if p.appliesGrant
-								td: a(href=`grantview/${p.id}`) Yes
+								td: a(href=`textview/grant/${p.id}`) Yes
+							else
+								td No
+							if p.additionalInfo
+								td: a(href=`textview/additionalInfo/${p.id}`) Yes
 							else
 								td No
 							td
