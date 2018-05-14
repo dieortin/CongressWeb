@@ -1,9 +1,7 @@
-const nodemailer = require('nodemailer')
+const mailer = require('pug-mailer')
 require('dotenv').config()
 
-let transporter = null
-
-function setupNodemailer() {
+function setupMailer() {
 	const options = {
 		service: process.env.MAIL_SERVICE,
 		auth: {
@@ -23,19 +21,7 @@ function setupNodemailer() {
 			return new Error('Not all mail auth options are defined')
 		}
 	}
-
-	// Generate test SMTP service account from ethereal.email
-	//nodemailer.createTestAccount((err, account) => {
-	// create reusable transporter object using the default SMTP transport
-	transporter = nodemailer.createTransport(options)
-	//})
+	mailer.init(options)
 }
 
-function getTransporter() {
-	return transporter
-}
-
-module.exports = {
-	setup: setupNodemailer,
-	transporter: getTransporter
-}
+module.exports = setupMailer

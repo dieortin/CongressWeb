@@ -8,6 +8,7 @@ block content
 				thead
 					tr
 						th Full name
+						th Email
 						th Phone #
 						th Affiliation
 						th Aff. address
@@ -16,11 +17,12 @@ block content
 						th Abstract?
 						th Grant?
 						th Info
-						th
+						th.managementButtons
 				tbody
 					each p in participants
 						tr(id=p.id)
 							td #{p.fullName}
+							td #{p.email}
 							td #{p.phoneNumber}
 							td #{p.affName}
 							td #{p.affAddress}

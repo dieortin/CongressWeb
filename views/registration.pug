@@ -23,6 +23,10 @@ block content
 				label Family name: 
 				input(required type='text' name='familyName')
 			div
+				label Email address: 
+				input.withValidity(required type='email' name='email')
+				span.validity
+			div
 				label Phone number: 
 				input.withValidity(required type='tel' name='phoneNumber')
 				span.validity

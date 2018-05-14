@@ -4,7 +4,7 @@ const debugRegistration = require('debug')('congressweb:registration')
 require('dotenv').config()
 const request = require('request')
 const querystring = require('querystring')
-const nodemailer = require('nodemailer')
+const mailer = require('pug-mailer')
 
 const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
@@ -55,7 +55,8 @@ router.post('/', function(req, res, next) {
 			title: req.body.title,
 			firstName: req.body.firstName,
 			familyName: req.body.familyName,
-			phoneNumber: req.body.phoneNumber
+			phoneNumber: req.body.phoneNumber,
+			email: req.body.email
 		},
 		affiliation: {
 			name: req.body.affiliationName,
@@ -106,25 +107,17 @@ router.post('/', function(req, res, next) {
 			// setup email data with unicode symbols
 			let mailOptions = {
 				from: '"EREP\'18 Registration"  <registration@erep2018.com>', // sender address
-				to: 'dieortin@gmail.com', // list of receivers
+				to: destinataries, // list of receivers
 				subject: 'New registration ✔', // Subject line
-				text: 'Hello world?', // plain text body
-				html: `<h1>New participant registered</h1>
-						<div>New participant: ${newParticipant.personalData.firstName}</div>
-						<h3>New data to be added to the emails soon</h3>` // html body
+				template: 'newRegistration',
+				data: {
+					participant: newParticipant
+				}
 			}
 
-			require('../helpers/setupNodemailer').transporter().sendMail(mailOptions, (error, info) => {
-				if (error) {
-					return debugRegistration(error)
-				}
-				debugRegistration('Message sent: %s', info.messageId)
-				// Preview only available when sending through an Ethereal account
-				debugRegistration('Preview URL: %s', nodemailer.getTestMessageUrl(info))
-
-				// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-				// Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-			})
+			mailer.send(mailOptions)
+				.then(response => debugRegistration('Email sent!'))
+				.catch(err => debugRegistration('Error! ' + err))
 		}
 	})
 

@@ -35,6 +35,7 @@ router.get('/', (req, res) => {
 			p.talkTitle = participants[i].talk.title
 			p.appliesGrant = participants[i].grant.doesApply
 			p.additionalInfo = participants[i].additionalInfo
+			p.email = pd.email
 
 			req.app.locals.renderingOptions.participants.push(p)
 		}
