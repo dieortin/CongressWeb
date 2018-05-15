@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 	Participant.find({
 		'approved': true
 	}).sort({
-		'personalData.firstName': 'asc'
+		'personalData.familyName': 'desc'
 	}).find((err, participants) => {
 		if (err) {
 			debugParticipants('Error while searching for participants')
