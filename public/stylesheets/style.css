@@ -324,6 +324,10 @@ table, table th, table td {
 	border: solid thin black;
 }
 
+table th, table td {
+	padding: 3px 13px;
+}
+
 table .managementButtons {
 	min-width: 150px;
 }
