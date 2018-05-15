@@ -10,11 +10,12 @@ router.get('/', (req, res) => {
 	Participant.find({
 		'approved': true
 	}).sort({
-		'personalData.familyName': 1
+		'personalData.familyName': 1 // Sort by family name in descending order
 	}).exec((err, participants) => {
 		if (err) {
 			debugParticipants('Error while searching for participants')
 		}
+		// TODO: display an error page here
 		req.app.locals.renderingOptions.participants = participants
 		res.render('participants', req.app.locals.renderingOptions)
 	})
