@@ -21,7 +21,8 @@ block content
 			tbody
 				each p in participants
 					tr(id=p.id)
-						td #{p.personalData.title} #{p.personalData.firstName} #{p.personalData.familyName}
+						- var processedTitle = (p.personalData.title === 'PhD Student') ? '' : p.personalData.title
+						td #{processedTitle} #{p.personalData.firstName} #{p.personalData.familyName}
 						if user
 							td #{p.personalData.email}
 						td #{p.affiliation.name}
