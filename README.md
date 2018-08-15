@@ -32,6 +32,7 @@ The server requires *all* of the following variables to be correctly defined in 
 * DATABASE_PATH (path for the database in the mongodb server)
 * RECAPTCHA_SECRET (your secret string obtained from [Google Recaptcha](https://www.google.com/recaptcha/admin))
 * REGISTRATION_OPENING (with the following format: 'December 17, 1995 03:24:00')
+* REGISTRATION_CLOSING (same format as above)
 * NODE_ENV (if not set, Node will use 'development')
 * APP_MOUNT_DIR (directory of the server in which the server should listen for requests)
 * MAIL_SERVICE (one of those defined [here](http://nodemailer.com/smtp/well-known/))

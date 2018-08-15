@@ -10,12 +10,13 @@ const APP_MOUNT_DIR = process.env.APP_MOUNT_DIR
 
 const Participant = require('../models/Participant')
 
-router.get('/', isAuthenticated, (req, res) => {
+router.get('/', isAuthenticated, isRegistrationOpen, (req, res) => {
+	//debugRegistration('Rendering page')
 	req.app.locals.renderingOptions.title = 'Register'
 	res.render('registration', req.app.locals.renderingOptions)
 })
 
-router.get('/:code', function(req, res) {
+router.get('/:code', isRegistrationOpen, function(req, res) {
 	req.app.locals.renderingOptions.title = 'Register'
 	if (req.params.code == 'recaptcha') {
 		req.app.locals.renderingOptions.error = 'Failed captcha verification'
@@ -25,7 +26,7 @@ router.get('/:code', function(req, res) {
 	res.render('registration', req.app.locals.renderingOptions)
 })
 
-router.post('/', function(req, res, next) {
+router.post('/', isRegistrationOpen, function(req, res, next) {
 	const recaptcha = req.body['g-recaptcha-response']
 
 	const body = {
@@ -133,11 +134,50 @@ router.post('/', function(req, res, next) {
 
 })
 
+/**
+ * Redirects the user to the administration page if they're
+ * already authenticated
+ *
+ * @param      {Object}    req     The request
+ * @param      {Object}    res     The response
+ * @param      {Function}  next    The callback
+ */
 function isAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		res.redirect(APP_MOUNT_DIR + '/admin')
 	} else {
 		next()
+	}
+}
+
+/**
+ * Rejects the request with a 404 if registration is closed
+ *
+ * @param      {Object}    req     The request
+ * @param      {Object}    res     The response
+ * @param      {Function}  next    The callback
+ */
+function isRegistrationOpen(req, res, next) {
+	const openingDateString = process.env.REGISTRATION_OPENING
+	const closingDateString = process.env.REGISTRATION_CLOSING
+	if (!openingDateString) {
+		throw new new Error('No registration opening date present on environment')
+	}
+	const openingDate = new Date(openingDateString)
+	const closingDate = new Date(closingDateString)
+	const today = new Date()
+
+	if (today > openingDate && today <= closingDate) {
+		//debugRegistration('Registration open')
+		next()
+	} else {
+		// Render a 404, should be refactored to a function that's also used 
+		// in the app.js handler at the end of the middleware stack
+		var err = new Error('Not Found')
+		err.status = 404
+		res.statusCode = 404
+		req.app.locals.renderingOptions.title = '404'
+		res.render('404', req.app.locals.renderingOptions)
 	}
 }
 
