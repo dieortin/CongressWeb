@@ -15,7 +15,6 @@ html
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 			gtag('config', 'UA-119195992-1');
-</script>
 
 	body
 		if headerImage
@@ -32,7 +31,7 @@ html
 								a(href='admin') Administration
 						li: a(href='index') Homepage
 						li: a(href='participants') Participants
-						li: a.disabled(href='schedule') Schedule
+						li: a(href='schedule') Schedule
 						li: a(href='practicalInfo') Practical information
 					if user
 						div.current-session
