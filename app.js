@@ -30,7 +30,6 @@ const checkAuth = require('./helpers/checkAuth')
 ////////////////////////////////////////////////////////////////////
 /////////// ROUTES /////////////////////////////////////////////////
 const index = require('./routes/index')
-const users = require('./routes/users')
 const login = require('./routes/login')
 const registration = require('./routes/registration')
 const participants = require('./routes/participants')
@@ -47,6 +46,7 @@ const practicalInfo = require('./routes/practicalInfo')
 /////////// BASIC EXPRESS SETUP /////////////////////////
 const app = express()
 
+app.mountPath = APP_MOUNT_DIR
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
@@ -69,7 +69,12 @@ app.use(helmet())
 setupMailer()
 ///////////////////////////////////////////////////////////
 
-database.connect()
+app.staticMode = false
+database.connect().catch((e) => {
+	app.staticMode = true
+	debugApp('Couldn\'t connect to the database, initializing in static mode')
+	debugApp(e)
+})
 	.then(setupPassport)
 	.then(setupPaths)
 	.then(() => {
@@ -83,6 +88,10 @@ database.connect()
 ///////////////////////////////////////////////////////////
 function setupPassport() {
 	return new Promise((resolve, reject) => {
+		if (app.staticMode) {
+			debugApp('Static mode on, skipping passport setup')
+			return resolve()
+		}
 		debugApp('Setting up passport')
 		app.use(session({ // Session initialization
 			secret: process.env.SESSION_SECRET,
@@ -123,6 +132,8 @@ function setupPassport() {
 function setupPaths() {
 	return new Promise((resolve, reject) => {
 		debugApp('Setting up the application paths')
+
+		debugApp('App mounted on ' + APP_MOUNT_DIR + '/')
 		// Add the user and registering info to the request
 		app.use(addRenderingData)
 
@@ -134,34 +145,47 @@ function setupPaths() {
 			res.redirect('https://' + req.hostname + req.path)
 		})
 
-		app.use(APP_MOUNT_DIR + '/', index)
-		app.use(APP_MOUNT_DIR + '/index', index)
-		app.use(APP_MOUNT_DIR + '/users', users)
-		app.use(APP_MOUNT_DIR + '/login', login)
-		app.use(APP_MOUNT_DIR + '/registration', registration)
-		app.use(APP_MOUNT_DIR + '/participants', participants)
-		app.use(APP_MOUNT_DIR + '/schedule', schedule)
-		app.use(APP_MOUNT_DIR + '/participantApproval', checkAuth, participantApproval)
-		app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
-		// Uncomment to enable admin registration!!!
-		//app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
-		app.use(APP_MOUNT_DIR + '/abstract', abstract)
-		app.use(APP_MOUNT_DIR + '/textview', textview)
-		app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
+		if (app.staticMode) {
+			app.use(APP_MOUNT_DIR + '/', index)
+			app.use(APP_MOUNT_DIR + '/index', index)
+			app.use(APP_MOUNT_DIR + '/schedule', schedule)
+			app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
-		app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
-			req.logout()
-			res.redirect(APP_MOUNT_DIR + '/')
-		})
+			app.all('*', (req, res, next) => {
+				req.app.locals.renderingOptions.staticMode = true
+				return next()
+			})
+		} else if (!app.staticMode) {
+			app.use(APP_MOUNT_DIR + '/', index)
+			app.use(APP_MOUNT_DIR + '/index', index)
+			app.use(APP_MOUNT_DIR + '/login', login)
+			app.use(APP_MOUNT_DIR + '/registration', registration)
+			app.use(APP_MOUNT_DIR + '/participants', participants)
+			app.use(APP_MOUNT_DIR + '/schedule', schedule)
+			app.use(APP_MOUNT_DIR + '/participantApproval', checkAuth, participantApproval)
+			app.use(APP_MOUNT_DIR + '/admin', checkAuth, admin)
+			// Uncomment to enable admin registration!!!
+			//app.use(APP_MOUNT_DIR + '/userRegistration', userRegistration)
+			app.use(APP_MOUNT_DIR + '/abstract', abstract)
+			app.use(APP_MOUNT_DIR + '/textview', textview)
+			app.use(APP_MOUNT_DIR + '/practicalInfo', practicalInfo)
 
-		app.post(APP_MOUNT_DIR + '/auth', passport.authenticate('local', {
-			successRedirect: APP_MOUNT_DIR + '/admin',
-			failureRedirect: APP_MOUNT_DIR + '/login',
-			failureFlash: true
-		}))
+			app.get(APP_MOUNT_DIR + '/logout', (req, res) => {
+				req.logout()
+				res.redirect(APP_MOUNT_DIR + '/')
+			})
+
+			app.post(APP_MOUNT_DIR + '/auth', passport.authenticate('local', {
+				successRedirect: APP_MOUNT_DIR + '/admin',
+				failureRedirect: APP_MOUNT_DIR + '/login',
+				failureFlash: true
+			}))
+		}
+
+
 
 		// catch 404 and forward to error handler
-		app.use(function(req, res, next) {
+		app.use(function(req, res/*, next*/) {
 			var err = new Error('Not Found')
 			err.status = 404
 			res.statusCode = 404

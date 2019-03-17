@@ -1,6 +1,11 @@
 function addRenderingData(req, res, next) {
 	// Add an empty renderingOptions object
 	req.app.locals.renderingOptions = {}
+
+	// Add the mount path and the static mode to the information passed to the views
+	req.app.locals.renderingOptions.appMountPath = req.app.mountPath
+	req.app.locals.renderingOptions.staticMode = req.app.staticMode
+
 	// Enable/disable registrations
 	const openingDateString = process.env.REGISTRATION_OPENING
 	const closingDateString = process.env.REGISTRATION_CLOSING

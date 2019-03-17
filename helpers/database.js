@@ -26,7 +26,7 @@ exports.connect = function() {
 			})
 			.catch((err) => {
 				console.log('Error while connecting to the database!: ' + err)
-				reject()
+				reject(err)
 			})
 	})
 }

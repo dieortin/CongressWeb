@@ -2,7 +2,7 @@ doctype html
 html
 	head
 		title= title + " | EREP'18"
-		base(href='/erep2018/')
+		base(href=appMountPath)
 		meta(name='author' content='Diego Ortín Fernández <dieortin@gmail.com>')
 		meta(name='viewport', content='width=device-width')
 		link(href='https://fonts.googleapis.com/css?family=Montserrat|Scope+One|Trocchi' rel='stylesheet')
@@ -26,13 +26,20 @@ html
 				#navicon(onclick='toggleDropdownVisibility()') ☰
 				nav.hidden
 					ul.section-tabs
-						if user
-							li
-								a(href='admin') Administration
-						li: a(href='index') Homepage
-						li: a(href='participants') Participants
-						li: a(href='schedule') Schedule
-						li: a(href='practicalInfo') Practical information
+						if staticMode
+							if user
+								li: a.disabled(href='admin') Administration
+							li: a(href='index') Homepage
+							li: a.disabled(href='participants') Participants
+							li: a(href='schedule') Schedule
+							li: a(href='practicalInfo') Practical information
+						else
+							if user
+								li: a(href='admin') Administration
+							li: a(href='index') Homepage
+							li: a(href='participants') Participants
+							li: a(href='schedule') Schedule
+							li: a(href='practicalInfo') Practical information
 					if user
 						div.current-session
 							span Logged in as 
@@ -40,7 +47,7 @@ html
 							a.logout(href='logout') Sign out
 					else
 						div.current-session
-							if registrationEnabled
+							if registrationEnabled && !staticMode
 								a.registration(href='registration') Registration
 							else
 								div.disabled

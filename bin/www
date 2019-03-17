@@ -12,9 +12,19 @@ const https = require('https')
 const path = require('path')
 
 /// Setup HTTPS 
-const options = {
-	cert: fs.readFileSync(path.join(__dirname, '../sslcert', 'cert.pem')),
-	key: fs.readFileSync(path.join(__dirname, '../sslcert', 'key.pem'))
+let options = {}
+try {
+	options = {
+		cert: fs.readFileSync(path.join(__dirname, '../sslcert', 'cert.pem')),
+		key: fs.readFileSync(path.join(__dirname, '../sslcert', 'key.pem'))
+	}
+} catch (err) {
+	if (err.code === 'ENOENT') {
+		console.log('Couldn\'t find a certificate file at ' + err.path)
+		process.exit(1) // Exit with error
+	} else {
+		throw err
+	}
 }
 
 /**
@@ -52,7 +62,7 @@ function normalizePort(val) {
 	const port = parseInt(val, 10)
 
 	if (isNaN(port)) {
-	// named pipe
+		// named pipe
 		return val
 	}
 
@@ -73,9 +83,7 @@ function onError(error) {
 		throw error
 	}
 
-	const bind = typeof port === 'string'
-		? 'Pipe ' + port
-		: 'Port ' + port
+	const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
@@ -98,10 +106,8 @@ function onError(error) {
 
 function onListening() {
 	const addr = sslServer.address()
-	const bind = typeof addr === 'string'
-		? 'pipe ' + addr
-		: 'port ' + addr.port
-	if (host) debug('Host is ' + host)
+	const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
+	if (host) debug('Host is ' + host) 
 	debug('Listening on ' + bind)
 }
 
